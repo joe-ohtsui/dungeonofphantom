@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{4CC32CC8-66E8-1BC4-D05B-686BFBDE6A4B}") = "Dungeon of Phantom", "Assembly-CSharp.csproj", "{ECA6CD53-35D4-026D-23B6-817BB290F99B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA6CD53-35D4-026D-23B6-817BB290F99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA6CD53-35D4-026D-23B6-817BB290F99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA6CD53-35D4-026D-23B6-817BB290F99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA6CD53-35D4-026D-23B6-817BB290F99B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
