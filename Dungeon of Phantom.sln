@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{4CC32CC8-66E8-1BC4-D05B-686BFBDE6A4B}") = "Dungeon of Phantom", "Assembly-CSharp.csproj", "{ECA6CD53-35D4-026D-23B6-817BB290F99B}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon of Phantom", "Assembly-CSharp.csproj", "{ECA6CD53-35D4-026D-23B6-817BB290F99B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
