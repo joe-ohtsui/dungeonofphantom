@@ -149,7 +149,7 @@ public class DungeonGenerator : MonoBehaviour
     void instantiateToChildren(GameObject prefab, Vector3 v)
     {
         GameObject o;
-        o = (GameObject)Instantiate(prefab, v, Quaternion.identity);
+		o = Instantiate(prefab, v, Quaternion.identity) as GameObject;
         o.transform.parent = dm.transform;
     }
 
