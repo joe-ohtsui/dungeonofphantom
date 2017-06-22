@@ -63,6 +63,8 @@
      <Compile Include="Assets\Scripts\StatusUI\DungeonMap.cs" />
      <Compile Include="Assets\Scripts\StatusUI\SliderBar.cs" />
      <Compile Include="Assets\Scripts\StatusUI\StatusDrawer.cs" />
+     <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />
+     <Compile Include="Assets\Scripts\Title\TapToStart.cs" />
      <None Include="Assets\Shader\DoubleSideShader.shader" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
