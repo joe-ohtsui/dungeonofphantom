@@ -11,10 +11,9 @@ public class TapToStart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if (Input.GetTouch(0).touch.phase == TouchPhase.Ended)
-		//{
-			// タッチ終了
-
-		//}
+		if (Input.GetKeyUp (KeyCode.Mouse0))
+		{
+			Application.LoadLevel ("Dungeon");
+		}
 	}
 }
