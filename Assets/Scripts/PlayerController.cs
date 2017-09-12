@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     Actor player;
+	bool buttonClicked = false;
 
     void Start ()
     {
@@ -63,33 +64,132 @@ public class PlayerController : MonoBehaviour
 			player.setDest (player.pos.move (player.pos.direction));
 		}
 	}
+
+	public void TurnLeftButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			TurnLeft ();
+		}
+	}
+
+	public void TurnRightButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			TurnRight ();
+		}
+	}
+
+	public void MoveForwardButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			MoveForward ();
+		}
+	}
+
+	public void MoveBackwardButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			MoveBackward ();
+		}
+	}
+
+	public void MoveLeftButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			MoveLeft ();
+		}
+	}
+
+	public void MoveRightButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			MoveRight ();
+		}
+	}
+
+	public void AttackButtonClicked()
+	{
+		buttonClicked = true;
+		if (player.actphase == Actor.Phase.KEY_WAIT)
+		{
+			Attack ();
+		}
+	}
+
+	void TurnLeft()
+	{
+		player.setDest(player.pos.toLeft());
+	}
+
+	void TurnRight()
+	{
+		player.setDest(player.pos.toRight());
+	}
+
+	void MoveForward()
+	{
+		player.setDest(player.pos.move(player.pos.direction));
+	}
+
+	void MoveBackward()
+	{
+		player.setDest(player.pos.move((player.pos.direction + 2) % 4));
+	}
+
+	void MoveLeft()
+	{
+		player.setDest(player.pos.move((player.pos.direction + 3) % 4));
+	}
+
+	void MoveRight()
+	{
+		player.setDest(player.pos.move((player.pos.direction + 1) % 4));
+	}
+
+	void Attack()
+	{
+		player.actphase = Actor.Phase.ATTACK_START;
+	}
 	
 	void Update ()
     {
-        if (player.actphase == Actor.Phase.KEY_WAIT)
+        if (player.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                player.setDest(player.pos.toLeft());
+				TurnLeft ();
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                player.setDest(player.pos.toRight());
+				TurnRight ();
             }
             else if (Input.GetKey(KeyCode.UpArrow))
             {
-                player.setDest(player.pos.move(player.pos.direction));
+				MoveForward ();
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                player.setDest(player.pos.move((player.pos.direction + 2) % 4));
+				MoveBackward ();
             }
             else if (Input.GetKey(KeyCode.X))
             {
-                player.actphase = Actor.Phase.ATTACK_START;
+				Attack ();
             }
 			Flick ();
         }
+		buttonClicked = false;
         transform.LookAt(player.getLookAt());
     }
     

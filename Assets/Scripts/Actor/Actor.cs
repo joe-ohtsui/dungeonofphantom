@@ -138,22 +138,22 @@ public class Actor : MonoBehaviour
     }
 
     public Vector3 getLookAt()
-    {
-        GridPosition p = pos.move(pos.direction);
-        GridPosition q = dest.move(dest.direction);
-        Vector3 v = new Vector3();
-        v.x = 1.0f * (p.x * (MAXCOUNT - count) + q.x * count) / MAXCOUNT;
-        v.z = 1.0f * (p.z * (MAXCOUNT - count) + q.z * count) / MAXCOUNT;
-        if (MAXCOUNT / 3 < count && count < MAXCOUNT * 2 / 3)
-        {
-            v.y = 0.01f;
-        }
-        if (dmgcount > 0)
-        {
-            v.x += 0.08f * (dmgcount / 4 % 2) - 0.04f;
-            v.z += 0.08f * (dmgcount / 4 % 2) - 0.04f;
-        }
-        return v;
-    }
+	{
+		GridPosition p = pos.move (pos.direction);
+		GridPosition q = dest.move (dest.direction);
+		Vector3 v = new Vector3 ();
+		v.x = 1.0f * (p.x * (MAXCOUNT - count - 2) + q.x * count) / (MAXCOUNT - 2);
+		v.z = 1.0f * (p.z * (MAXCOUNT - count - 2) + q.z * count) / (MAXCOUNT - 2);
+		if (MAXCOUNT / 3 < count && count < MAXCOUNT * 2 / 3)
+		{
+			v.y = 0.01f;
+		}
+		if (dmgcount > 0)
+		{
+			v.x += 0.08f * (dmgcount / 4 % 2) - 0.04f;
+			v.z += 0.08f * (dmgcount / 4 % 2) - 0.04f;
+		}
+		return v;
+	}
 
 }

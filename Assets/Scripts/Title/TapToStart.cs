@@ -13,7 +13,7 @@ public class TapToStart : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.Mouse0))
 		{
-			Application.LoadLevel ("Dungeon");
+			FadeManager.Instance.LoadLevel("Dungeon",0.5f);
 		}
 	}
 }

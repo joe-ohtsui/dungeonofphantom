@@ -56,9 +56,11 @@
      <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonManager.cs" />
      <Compile Include="Assets\Scripts\Dungeon\GridPosition.cs" />
+     <Compile Include="Assets\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\MonsterImage.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DepthDrawer.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DungeonMap.cs" />
      <Compile Include="Assets\Scripts\StatusUI\SliderBar.cs" />
