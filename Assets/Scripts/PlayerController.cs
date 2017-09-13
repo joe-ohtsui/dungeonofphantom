@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public void AnyOtherButtonClicked()
+	{
+		buttonClicked = true;
+	}
+
 	public void TurnLeftButtonClicked()
 	{
 		buttonClicked = true;
