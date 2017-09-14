@@ -15,7 +15,6 @@ public class DungeonMap : MonoBehaviour
     void Start()
     {
 		map = new Texture2D(128, 128, TextureFormat.ARGB32, false);
-//		map = new Texture2D(64, 64, TextureFormat.ARGB32, false);
         map.filterMode = FilterMode.Point;
 
         GetComponent<RawImage>().texture = map;
@@ -54,17 +53,12 @@ public class DungeonMap : MonoBehaviour
             {
                 cols[i] = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
-//			Color[] cols = new Color[4096];
-//			for (int i = 0; i < 4096; i++)
-//			{
-//				cols[i] = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-//			}
 
-            Color white = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-            Color green = new Color(0.25f, 1.0f, 0.75f, 0.67f);
-            Color blue = new Color(0.75f, 0.25f, 1.0f, 0.67f);
-            //Color red = new Color(0.75f, 0.0f, 0.0f, 0.67f);
-            Color yellow = new Color(1.0f, 0.875f, 0.25f, 0.67f);
+            Color white = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+            Color green = new Color(0.25f, 1.0f, 0.75f, 0.5f);
+            Color blue = new Color(0.75f, 0.25f, 1.0f, 0.5f);
+            //Color red = new Color(0.75f, 0.0f, 0.0f, 0.5f);
+            Color yellow = new Color(1.0f, 0.875f, 0.25f, 0.5f);
 
 			for (int i = 0; i < 19; i++)
 			{
@@ -105,7 +99,7 @@ public class DungeonMap : MonoBehaviour
 						{
 							for (int y = 0; y < 5; y++)
 							{
-								if (p == player.pos)
+								if (p == player.dest)
 								{
 									cols[(14 + x + p.x * 6) + 128 * (14 + y + p.z * 6)] = yellow;
 								}	
@@ -122,69 +116,6 @@ public class DungeonMap : MonoBehaviour
 					}
 				}
 			}
-
-
-//            for (int i = -5; i <= 5; i++)
-//            {
-//                for (int j = -5; j <= 5; j++)
-//                {
-//                    GridPosition p = player.dest.move(player.dest.direction, i).move((player.dest.direction + 1) % 4, j);
-//                    if (getVisited(p.x, p.z))
-//                    {
-//                        if (getBlock(p.move(player.dest.direction)))
-//                        {
-//                            for (int k = 0; k < 6; k++)
-//                            {
-//                                cols[(29 + k + j * 5) + 64 * (34 + i * 5)] = white;
-//                            }
-//                        }
-//                        if (getBlock(p.move((player.dest.direction + 1) % 4)))
-//                        {
-//                            for (int k = 0; k < 6; k++)
-//                            {
-//                                cols[(34 + j * 5) + 64 * (29 + k + i * 5)] = white;
-//                            }
-//                        }
-//                        if (getBlock(p.move((player.dest.direction + 2) % 4)))
-//                        {
-//                            for (int k = 0; k < 6; k++)
-//                            {
-//                                cols[(29 + k + j * 5) + 64 * (29 + i * 5)] = white;
-//                            }
-//                        }
-//                        if (getBlock(p.move((player.dest.direction + 3) % 4)))
-//                        {
-//                            for (int k = 0; k < 6; k++)
-//                            {
-//                                cols[(29 + j * 5) + 64 * (29 + k + i * 5)] = white;
-//                            }
-//                        }
-//                        for (int x = 0; x < 4; x++)
-//                        {
-//                            for (int y = 0; y < 4; y++)
-//                            {
-//                                if (dm.getBlock(p)==2)
-//                                {
-//                                    cols[(30 + x + j * 5) + 64 * (30 + y + i * 5)] = blue;
-//                                }
-//                                else
-//                                {
-//                                    cols[(30 + x + j * 5) + 64 * (30 + y + i * 5)] = green;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            for (int x = 0; x < 4; x++)
-//            {
-//                for (int y = 0; y < 4; y++)
-//                {
-//                    cols[30 + x + 64 * (30 + y)] = yellow;
-//                }
-//            }
-
-//            map.SetPixels(0, 0, 64, 64, cols);
 			map.SetPixels(0, 0, 128, 128, cols);
             map.Apply();
         }
