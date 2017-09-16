@@ -13,7 +13,7 @@ public class FlameEffect : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		float alpha = Mathf.Sin (count * Mathf.PI / 240.0f) / 2.0f + 0.5f;
+//		float alpha = Mathf.Sin (count * Mathf.PI / 240.0f) / 2.0f + 0.5f;
 		count++;
 	}
 }

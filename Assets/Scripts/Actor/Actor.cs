@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Actor : MonoBehaviour
@@ -16,6 +17,8 @@ public class Actor : MonoBehaviour
     public GridPosition pos;
     public GridPosition dest;
     public Phase actphase;
+	public GameObject damageUI;
+	public GameObject slash;
 
     private DungeonManager dm;
     private int count;
@@ -63,7 +66,7 @@ public class Actor : MonoBehaviour
             dmgcount--;
             if (tag == "Actor")
             {
-                if (dmgcount / 4 % 2 == 0)
+                if (dmgcount / 7 % 2 == 0)
                 {
                     GetComponent<SpriteRenderer>().sprite = null;
                 }
@@ -94,14 +97,13 @@ public class Actor : MonoBehaviour
     {
         GridPosition p = pos.move(pos.direction);
         Param param = GetComponent<Param>();
-        int damage = -2;
 
         GameObject player = GameObject.FindWithTag("Player");
         Actor pla = player.GetComponent<Actor>();
         if (p == pla.dest)
         {
             Param plp = player.GetComponent <Param>();
-            damage = pla.damage(param, plp);
+			pla.damage(param, plp);
         }
 
         GameObject[] list = GameObject.FindGameObjectsWithTag("Actor");
@@ -111,7 +113,7 @@ public class Actor : MonoBehaviour
             if (ba.dest == p)
             {
                 Param bp = g.GetComponent<Param>();
-                damage = ba.damage(param, bp);
+				damagePrint (ba.damage(param, bp));
                 if (bp.hp == 0) { Destroy(g); }
             }
         }
@@ -136,6 +138,23 @@ public class Actor : MonoBehaviour
         }
         return result;
     }
+
+	void damagePrint(int d)
+	{
+		GridPosition p = pos.move (pos.direction);
+		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (p.x, -0.1f, p.z), Quaternion.identity);
+		GameObject q = (GameObject)Instantiate (slash, new Vector3 (p.x, -0.1f, p.z), Quaternion.identity);
+		if (d < 0)
+		{
+			o.transform.GetChild(0).GetComponent<Text> ().text = "MISS";
+		}
+		else
+		{
+			o.transform.GetChild(0).GetComponent<Text> ().text = d.ToString ();
+		}
+		Destroy (o, 0.5f);
+		Destroy (q, 0.2f);
+	}
 
     public Vector3 getLookAt()
 	{
