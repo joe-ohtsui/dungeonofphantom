@@ -71,28 +71,28 @@ public class DungeonMap : MonoBehaviour
 						{
 							for (int k = 0; k < 7; k++)
 							{
-								cols[(13 + k + p.x * 6) + 128 * (19 + p.z * 6)] = white;
+								cols[(6 + k + p.x * 6) + 128 * (12 + p.z * 6)] = white;
 							}
 						}
 						if (getBlock(p.move(1)))
 						{
 							for (int k = 0; k < 7; k++)
 							{
-								cols[(19 + p.x * 6) + 128 * (13 + k + p.z * 6)] = white;
+								cols[(12 + p.x * 6) + 128 * (6 + k + p.z * 6)] = white;
 							}
 						}
 						if (getBlock(p.move(2)))
 						{
 							for (int k = 0; k < 7; k++)
 							{
-								cols[(13 + k + p.x * 6) + 128 * (13 + p.z * 6)] = white;
+								cols[(6 + k + p.x * 6) + 128 * (6 + p.z * 6)] = white;
 							}
 						}
 						if (getBlock(p.move(3)))
 						{
 							for (int k = 0; k < 7; k++)
 							{
-								cols[(13 + p.x * 6) + 128 * (13 + k + p.z * 6)] = white;
+								cols[(6 + p.x * 6) + 128 * (6 + k + p.z * 6)] = white;
 							}
 						}
 						for (int x = 0; x < 5; x++)
@@ -101,15 +101,15 @@ public class DungeonMap : MonoBehaviour
 							{
 								if (p == player.dest)
 								{
-									cols[(14 + x + p.x * 6) + 128 * (14 + y + p.z * 6)] = yellow;
+									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = yellow;
 								}	
 								else if (dm.getBlock(p)==2)
 								{
-									cols[(14 + x + p.x * 6) + 128 * (14 + y + p.z * 6)] = blue;
+									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = blue;
 								}
 								else
 								{
-									cols[(14 + x + p.x * 6) + 128 * (14 + y + p.z * 6)] = green;
+									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = green;
 								}
 							}
 						}

@@ -15,7 +15,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 
 	public void Awake ()
 	{
-		if (this != Instance) {
+		if (this != Instance)
+		{
 			Destroy (this);
 			return;
 		}
@@ -60,7 +61,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 		//だんだん暗く
 		this.isFading = true;
 		float time = 0;
-		while (time <= interval) {
+		while (time <= interval)
+		{
 			this.fadeAlpha = Mathf.Lerp (0f, 1f, time / interval);      
 			time += Time.deltaTime;
 			yield return 0;
@@ -74,7 +76,8 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 
 		//だんだん明るく
 		time = 0;
-		while (time <= interval) {
+		while (time <= interval)
+		{
 			this.fadeAlpha = Mathf.Lerp (1f, 0f, time / interval);
 			time += Time.deltaTime;
 			yield return 0;

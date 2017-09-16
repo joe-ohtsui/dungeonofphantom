@@ -133,8 +133,12 @@ public class Actor : MonoBehaviour
             if (ba.pos == p)
             {
                 Param bp = g.GetComponent<Param>();
-				damagePrint (ba.damage(param, bp));
-                if (bp.hp == 0) { Destroy(g); }
+				ba.damagePrint (ba.damage(param, bp), g.transform.name);
+                if (bp.hp == 0)
+				{
+					Destroy(g);
+					LogManager.Instance.PutLog (g.transform.name + "を 倒した");
+				}
             }
         }
 
@@ -159,23 +163,24 @@ public class Actor : MonoBehaviour
         return result;
     }
 
-	void damagePrint(int d)
+	void damagePrint(int d, string name)
 	{
-		GridPosition p = pos.move (pos.direction);
-		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
-		GameObject q = (GameObject)Instantiate (slash, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
+		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (pos.x, 0.0f, pos.z), Quaternion.identity);
+		GameObject p = (GameObject)Instantiate (slash, new Vector3 (pos.x, 0.0f, pos.z), Quaternion.identity);
 		o.transform.LookAt(Camera.main.transform.position);
-		q.transform.LookAt(Camera.main.transform.position);
+		p.transform.LookAt(Camera.main.transform.position);
 		if (d < 0)
 		{
 			o.transform.GetChild(0).GetComponent<Text> ().text = "MISS";
+			LogManager.Instance.PutLog ("攻撃は 外れた");
 		}
 		else
 		{
 			o.transform.GetChild(0).GetComponent<Text> ().text = d.ToString ();
+			LogManager.Instance.PutLog (name + "に " + d.ToString() + "ダメージを 与えた");
 		}
 		Destroy (o, 0.5f);
-		Destroy (q, 0.2f);
+		Destroy (p, 0.2f);
 	}
 
 	void plDamagePrint(int d)
@@ -189,6 +194,7 @@ public class Actor : MonoBehaviour
 		else
 		{
 			damagetext.text = d.ToString ();
+			LogManager.Instance.PutLog (d.ToString() + "ダメージを 受けた");
 		}
 	}
 

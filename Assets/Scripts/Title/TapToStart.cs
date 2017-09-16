@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TapToStart : MonoBehaviour {
+public class TapToStart : MonoBehaviour
+{
 
 	// Use this for initialization
 	void Start () {
