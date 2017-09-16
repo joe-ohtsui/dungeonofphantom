@@ -5,6 +5,13 @@ public class PlayerController : MonoBehaviour
 {
     Actor player;
 	bool buttonClicked = false;
+	bool moveForwardFlag = false;
+	bool moveBackwardFlag = false;
+	bool moveLeftFlag = false;
+	bool moveRightFlag = false;
+	bool turnLeftFlag = false;
+	bool turnRightFlag = false;
+	bool attackFlag = false;
 
     void Start ()
     {
@@ -37,12 +44,12 @@ public class PlayerController : MonoBehaviour
 			if (30 < dx)
 			{
 				//右向きにフリックされた
-				player.setDest (player.pos.toLeft ());
+				TurnLeft();
 			}
 			else if (-30 > dx)
 			{
 				//左向きにフリックされた
-				player.setDest (player.pos.toRight ());	
+				TurnRight();
 			}
 		}
 		else if (Mathf.Abs (dx) < Mathf.Abs (dy))
@@ -50,18 +57,18 @@ public class PlayerController : MonoBehaviour
 			if (30 < dy)
 			{
 				//上向きにフリックされた
-				player.setDest (player.pos.move ((player.pos.direction + 2) % 4));
+				MoveBackward ();
 			}
 			else if (-30 > dy)
 			{
 				//下向きにフリックされた
-				player.setDest (player.pos.move (player.pos.direction));
+				MoveForward();
 			}
 		}
 		else
 		{
 			//タップされた
-			player.setDest (player.pos.move (player.pos.direction));
+			MoveForward();
 		}
 	}
 
@@ -70,67 +77,75 @@ public class PlayerController : MonoBehaviour
 		buttonClicked = true;
 	}
 
-	public void TurnLeftButtonClicked()
+	public void TurnLeftButtonDown()
 	{
-		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			TurnLeft ();
-		}
+		turnLeftFlag = true;
 	}
 
-	public void TurnRightButtonClicked()
+	public void TurnLeftButtonUp()
 	{
+		turnLeftFlag = false;
 		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			TurnRight ();
-		}
 	}
 
-	public void MoveForwardButtonClicked()
+	public void TurnRightButtonDown()
 	{
-		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			MoveForward ();
-		}
+		turnRightFlag = true;
 	}
 
-	public void MoveBackwardButtonClicked()
+	public void TurnRightButtonUp()
 	{
+		turnRightFlag = false;
 		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			MoveBackward ();
-		}
 	}
 
-	public void MoveLeftButtonClicked()
+	public void MoveForwardButtonDown()
 	{
-		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			MoveLeft ();
-		}
+		moveForwardFlag = true;
 	}
 
-	public void MoveRightButtonClicked()
+	public void MoveForwardButtonUp()
 	{
+		moveForwardFlag = false;
 		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			MoveRight ();
-		}
+	}
+
+	public void MoveBackwardButtonDown()
+	{
+		moveBackwardFlag = true;
+	}
+
+	public void MoveBackwardButtonUp()
+	{
+		moveBackwardFlag = false;
+		buttonClicked = true;
+	}
+
+	public void MoveLeftButtonDown()
+	{
+		moveLeftFlag = true;
+	}
+
+	public void MoveLeftButtonUp()
+	{
+		moveLeftFlag = false;
+		buttonClicked = true;
+	}
+
+	public void MoveRightButtonDown()
+	{
+		moveRightFlag = true;
+	}
+
+	public void MoveRightButtonUp()
+	{
+		moveRightFlag = false;
+		buttonClicked = true;
 	}
 
 	public void AttackButtonClicked()
 	{
-		buttonClicked = true;
-		if (player.actphase == Actor.Phase.KEY_WAIT)
-		{
-			Attack ();
-		}
+		attackFlag = true;
 	}
 
 	void TurnLeft()
@@ -172,27 +187,31 @@ public class PlayerController : MonoBehaviour
     {
         if (player.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
+			if (Input.GetKey (KeyCode.LeftArrow) || turnLeftFlag)
+			{
 				TurnLeft ();
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
+			}
+			else if (Input.GetKey (KeyCode.RightArrow) || turnRightFlag)
+			{
 				TurnRight ();
-            }
-            else if (Input.GetKey(KeyCode.UpArrow))
-            {
+			}
+			else if (Input.GetKey (KeyCode.UpArrow) || moveForwardFlag)
+			{
 				MoveForward ();
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
+			}
+			else if (Input.GetKey (KeyCode.DownArrow) || moveBackwardFlag)
+			{
 				MoveBackward ();
-            }
-            else if (Input.GetKey(KeyCode.X))
-            {
+			}
+			else if (Input.GetKey (KeyCode.X) || attackFlag)
+			{
 				Attack ();
-            }
-			Flick ();
+				attackFlag = false;
+			}
+			else
+			{
+				Flick ();
+			}
         }
 		buttonClicked = false;
         transform.LookAt(player.getLookAt());

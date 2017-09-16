@@ -130,7 +130,7 @@ public class Actor : MonoBehaviour
         foreach (GameObject g in list)
         {
             Actor ba = g.GetComponent<Actor>();
-            if (ba.dest == p)
+            if (ba.pos == p)
             {
                 Param bp = g.GetComponent<Param>();
 				damagePrint (ba.damage(param, bp));
@@ -164,6 +164,8 @@ public class Actor : MonoBehaviour
 		GridPosition p = pos.move (pos.direction);
 		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
 		GameObject q = (GameObject)Instantiate (slash, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
+		o.transform.LookAt(Camera.main.transform.position);
+		q.transform.LookAt(Camera.main.transform.position);
 		if (d < 0)
 		{
 			o.transform.GetChild(0).GetComponent<Text> ().text = "MISS";
