@@ -20,6 +20,9 @@ public class Actor : MonoBehaviour
 	public GameObject damageUI;
 	public GameObject slash;
 
+	private SpriteRenderer sr;
+	private Text damagetext;
+	private Image psareaImage;
     private DungeonManager dm;
     private int count;
     private int dmgcount;
@@ -31,6 +34,15 @@ public class Actor : MonoBehaviour
         dmgcount = 0;
         dm = GameObject.FindGameObjectsWithTag("DungeonManager")[0].GetComponent<DungeonManager>();
         actphase = Phase.KEY_WAIT;
+		if (transform.tag == "Actor")
+		{
+			sr = GetComponent<SpriteRenderer> ();
+			damagetext = GameObject.Find ("DamageText").GetComponent<Text> ();
+		}
+		else if (transform.tag == "Player")
+		{
+			psareaImage = GameObject.Find ("PlayerStatusArea").GetComponent<Image> ();
+		}
     }
 
     void Update()
@@ -64,13 +76,21 @@ public class Actor : MonoBehaviour
         if (dmgcount > 0)
         {
             dmgcount--;
-            if (tag == "Actor")
+            if (transform.tag == "Actor")
             {
-                if (dmgcount / 7 % 2 == 0)
-                {
-                    GetComponent<SpriteRenderer>().sprite = null;
-                }
+				if (dmgcount / 3 % 2 == 0)
+				{
+					sr.enabled = true;
+				}
+				else
+				{
+					sr.enabled = false;
+				}
             }
+			else if (transform.tag == "Player")
+			{
+				psareaImage.color = new Color (1.0f * dmgcount / MAXCOUNT, 0.0f, 0.0f, 0.25f);
+			}
         }
 
         Vector3 u = transform.position;
@@ -103,7 +123,7 @@ public class Actor : MonoBehaviour
         if (p == pla.dest)
         {
             Param plp = player.GetComponent <Param>();
-			pla.damage(param, plp);
+			plDamagePrint (pla.damage (param, plp));
         }
 
         GameObject[] list = GameObject.FindGameObjectsWithTag("Actor");
@@ -142,8 +162,8 @@ public class Actor : MonoBehaviour
 	void damagePrint(int d)
 	{
 		GridPosition p = pos.move (pos.direction);
-		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (p.x, -0.1f, p.z), Quaternion.identity);
-		GameObject q = (GameObject)Instantiate (slash, new Vector3 (p.x, -0.1f, p.z), Quaternion.identity);
+		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
+		GameObject q = (GameObject)Instantiate (slash, new Vector3 (p.x, 0.0f, p.z), Quaternion.identity);
 		if (d < 0)
 		{
 			o.transform.GetChild(0).GetComponent<Text> ().text = "MISS";
@@ -154,6 +174,20 @@ public class Actor : MonoBehaviour
 		}
 		Destroy (o, 0.5f);
 		Destroy (q, 0.2f);
+	}
+
+	void plDamagePrint(int d)
+	{
+		damagetext.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		damagetext.enabled = true;
+		if (d < 0)
+		{
+			damagetext.text = "MISS";
+		}
+		else
+		{
+			damagetext.text = d.ToString ();
+		}
 	}
 
     public Vector3 getLookAt()
