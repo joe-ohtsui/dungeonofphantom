@@ -50,6 +50,15 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 		StartCoroutine (TransScene (scene, interval));
 	}
 
+	public void StartFadeOut(float interval)
+	{
+		StartCoroutine (FadeOut (interval));
+	}
+
+	public void StartFadeIn(float interval)
+	{
+		StartCoroutine (FadeIn (interval));
+	}
 
 	/// <summary>
 	/// シーン遷移用コルーチン
@@ -58,31 +67,43 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
 	/// <param name='interval'>暗転にかかる時間(秒)</param>
 	private IEnumerator TransScene (string scene, float interval)
 	{
+		yield return StartCoroutine (FadeOut (interval));
+
+		//シーン切替
+		Application.LoadLevel (scene);
+
+		yield return StartCoroutine (FadeIn (interval));
+	}
+
+	/// <summary>
+	/// 画面暗転用コルーチン
+	/// </summary>
+	/// <param name='interval'>暗転にかかる時間(秒)</param>
+	private IEnumerator FadeOut(float interval)
+	{
 		//だんだん暗く
 		this.isFading = true;
 		float time = 0;
-		while (time <= interval)
-		{
+		while (time <= interval) {
 			this.fadeAlpha = Mathf.Lerp (0f, 1f, time / interval);      
 			time += Time.deltaTime;
 			yield return 0;
 		}
+	}
 
-		if (scene != "")
-		{
-			//シーン切替
-			Application.LoadLevel (scene);
-		}
-
+	/// <summary>
+	/// 画面明転用コルーチン
+	/// </summary>
+	/// <param name='interval'>明転にかかる時間(秒)</param>
+	private IEnumerator FadeIn(float interval)
+	{
 		//だんだん明るく
-		time = 0;
-		while (time <= interval)
-		{
+		float time = 0;
+		while (time <= interval) {
 			this.fadeAlpha = Mathf.Lerp (1f, 0f, time / interval);
 			time += Time.deltaTime;
 			yield return 0;
 		}
-
 		this.isFading = false;
 	}
 

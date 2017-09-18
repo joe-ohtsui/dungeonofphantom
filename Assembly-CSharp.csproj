@@ -62,11 +62,10 @@
      <Compile Include="Assets\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\DepthDrawer.cs" />
+     <Compile Include="Assets\Scripts\StatusUI\DepthText.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DungeonMap.cs" />
      <Compile Include="Assets\Scripts\StatusUI\LogDrawer.cs" />
      <Compile Include="Assets\Scripts\StatusUI\LogManager.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\MapSwitch.cs" />
      <Compile Include="Assets\Scripts\StatusUI\SliderBar.cs" />
      <Compile Include="Assets\Scripts\StatusUI\StatusDrawer.cs" />
      <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />

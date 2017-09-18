@@ -5,12 +5,10 @@ using UnityEngine.UI;
 public class DungeonMap : MonoBehaviour
 {
     private Texture2D map;
-    private DungeonManager dm;
     private Actor player;
     private int count;
 
-    private bool[,] visited;
-    private bool[,] block;
+//    private bool[,] block;
 
     void Start()
     {
@@ -18,35 +16,32 @@ public class DungeonMap : MonoBehaviour
         map.filterMode = FilterMode.Point;
 
         GetComponent<RawImage>().texture = map;
-        dm = GameObject.FindWithTag("DungeonManager").GetComponent<DungeonManager>();
         player = GameObject.FindWithTag("Player").GetComponent<Actor>();
         count = 0;
 
-        visited = new bool[DungeonManager.WIDTH, DungeonManager.HEIGHT];
-        block = new bool[DungeonManager.WIDTH, DungeonManager.HEIGHT];
-        for (int x = 0; x < DungeonManager.WIDTH; x++)
-        {
-            for (int z = 0; z < DungeonManager.HEIGHT; z++)
-            {
-                visited[x, z] = false;
-                block[x, z] = false;
-            }
-        }
+//        block = new bool[DungeonManager.WIDTH, DungeonManager.HEIGHT];
+//        for (int x = 0; x < DungeonManager.WIDTH; x++)
+//        {
+//            for (int z = 0; z < DungeonManager.HEIGHT; z++)
+//            {
+//                block[x, z] = false;
+//            }
+//        }
     }
 
     void Update()
     {
         if (count % 6 == 0)
         {
-            visited[player.dest.x, player.dest.z] = true;
-            for (int i = 0; i < 4; i++)
-            {
-                GridPosition p = player.dest.move(i);
-                if (dm.getBlock(p) == 1)
-                {
-                    block[p.x, p.z] = true;
-                }
-            }
+			DungeonManager.Instance.visited[player.dest.x, player.dest.z] = true;
+//            for (int i = 0; i < 4; i++)
+//            {
+//                GridPosition p = player.dest.move(i);
+//				if (DungeonManager.Instance.getBlock(p) == 1)
+//                {
+//                    block[p.x, p.z] = true;
+//                }
+//            }
 
             Color[] cols = new Color[16384];
             for (int i = 0; i < 16384; i++)
@@ -67,28 +62,28 @@ public class DungeonMap : MonoBehaviour
 					GridPosition p = new GridPosition (i, j, 0);
 					if (getVisited(p.x, p.z))
 					{
-						if (getBlock(p.move(0)))
+						if (DungeonManager.Instance.getBlock(p.move(0)) == 1)
 						{
 							for (int k = 0; k < 7; k++)
 							{
 								cols[(6 + k + p.x * 6) + 128 * (12 + p.z * 6)] = white;
 							}
 						}
-						if (getBlock(p.move(1)))
+						if (DungeonManager.Instance.getBlock(p.move(1)) == 1)
 						{
 							for (int k = 0; k < 7; k++)
 							{
 								cols[(12 + p.x * 6) + 128 * (6 + k + p.z * 6)] = white;
 							}
 						}
-						if (getBlock(p.move(2)))
+						if (DungeonManager.Instance.getBlock(p.move(2)) == 1)
 						{
 							for (int k = 0; k < 7; k++)
 							{
 								cols[(6 + k + p.x * 6) + 128 * (6 + p.z * 6)] = white;
 							}
 						}
-						if (getBlock(p.move(3)))
+						if (DungeonManager.Instance.getBlock(p.move(3)) == 1)
 						{
 							for (int k = 0; k < 7; k++)
 							{
@@ -103,7 +98,7 @@ public class DungeonMap : MonoBehaviour
 								{
 									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = yellow;
 								}	
-								else if (dm.getBlock(p)==2)
+								else if (DungeonManager.Instance.getBlock(p) == 2)
 								{
 									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = blue;
 								}
@@ -126,22 +121,22 @@ public class DungeonMap : MonoBehaviour
     {
         if (0 <= x && x < DungeonManager.WIDTH && 0 <= z && z < DungeonManager.HEIGHT)
         {
-            return visited[x, z];
+			return DungeonManager.Instance.visited[x, z];
         }
         return false;
     }
 
-    bool getBlock(int x, int z)
-    {
-        if (0 <= x && x < DungeonManager.WIDTH && 0 <= z && z < DungeonManager.HEIGHT)
-        {
-            return block[x, z];
-        }
-        return false;
-    }
-
-    bool getBlock(GridPosition p)
-    {
-        return getBlock(p.x, p.z);
-    }
+//    bool getBlock(int x, int z)
+//    {
+//        if (0 <= x && x < DungeonManager.WIDTH && 0 <= z && z < DungeonManager.HEIGHT)
+//        {
+//            return block[x, z];
+//        }
+//        return false;
+//    }
+//
+//    bool getBlock(GridPosition p)
+//    {
+//        return getBlock(p.x, p.z);
+//    }
 }

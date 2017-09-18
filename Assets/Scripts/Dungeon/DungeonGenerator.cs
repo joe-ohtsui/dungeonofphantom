@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DungeonGenerator : MonoBehaviour
+public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 {
     public GameObject wallPrefab;
     public GameObject floorPrefab;
     public GameObject treasurePrefab;
     public GameObject upstairsPrefab;
     public GameObject downstairsPrefab;
-    private DungeonManager dm;
     
     void Start ()
     {
-        dm = GameObject.FindWithTag("DungeonManager").GetComponent<DungeonManager>();
+		if (this != Instance)
+		{
+			Destroy (this);
+			return;
+		}
+
         Generate();
     }
 
-    void Generate()
+    public void Generate()
     {
         InitFloor();
         WallExtend();
@@ -27,19 +31,19 @@ public class DungeonGenerator : MonoBehaviour
     void InitFloor()
     {
         //フロア初期化
-        dm.init();
+		DungeonManager.Instance.init();
         for (int x = 0; x < DungeonManager.WIDTH; x++)
         {
             for (int z = 0; z < DungeonManager.HEIGHT; z++)
             {
-                dm.setBlock(x, z, 1);    //壁
+				DungeonManager.Instance.setBlock(x, z, 1);    //壁
             }
         }
-        for (int x = 1; x < DungeonManager.WIDTH - 1; x++)
+		for (int x = offset() + 1; x < DungeonManager.WIDTH - offset() - 1; x++)
         {
-            for (int z = 1; z < DungeonManager.HEIGHT - 1; z++)
+			for (int z = offset() + 1; z < DungeonManager.HEIGHT - offset() - 1; z++)
             {
-                dm.setBlock(x, z, 0);    //床
+				DungeonManager.Instance.setBlock(x, z, 0);    //床
             }
         }
     }
@@ -54,11 +58,11 @@ public class DungeonGenerator : MonoBehaviour
             int max = -1;
             int wallcount = 0;
             //起点をランダム選択
-            for (int x = 0; x < DungeonManager.WIDTH; x += 2)
+			for (int x = offset(); x < DungeonManager.WIDTH - offset(); x += 2)
             {
-                for (int z = 0; z < DungeonManager.HEIGHT; z += 2)
+				for (int z = offset(); z < DungeonManager.HEIGHT - offset(); z += 2)
                 {
-                    if (dm.getBlock(x, z) == 1)
+					if (DungeonManager.Instance.getBlock(x, z) == 1)
                     {
                         wallcount++;
                         int d = GetNWallDirection(new GridPosition(x, z), 2);
@@ -83,7 +87,7 @@ public class DungeonGenerator : MonoBehaviour
                     for (int i = 0; i < 2; i++)
                     {
                         p = p.move(p.direction);
-                        dm.setBlock(p.x, p.z, 1);
+						DungeonManager.Instance.setBlock(p.x, p.z, 1);
                     }
                     if (Random.Range(0, m) < wallcount)
                     {
@@ -98,26 +102,45 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
+	int offset()
+	{
+		int d = 6 - DungeonManager.Instance.depth;
+		if (d < 0)
+		{
+			d = 0;
+		}
+		return d;
+	}
+
     void DungeonObject()
     {
         GridPosition p = getDeadEnd();
-        dm.setBlock(p, 2);
+		DungeonManager.Instance.setBlock(p, 2);
         p.direction = GetNWallDirection(p);
 
         Actor player = GameObject.FindWithTag("Player").GetComponent<Actor>();
         player.pos = p;
         player.dest = p;
 
-        dm.setBlock(getDeadEnd(), 4);
+		DungeonManager.Instance.setBlock(getDeadEnd(), 4);
 
-        for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 7 - offset(); i++)
         {
-            dm.setBlock(getDeadEnd(), 6);
+			DungeonManager.Instance.setBlock(getDeadEnd(), 6);
         }
     }
 
     void CreateObject()
     {
+		//オブジェクト削除
+		foreach (Transform n in DungeonManager.Instance.transform)
+		{
+			if (n.tag != "DungeonGenerator")
+			{
+				GameObject.Destroy (n.gameObject);
+			}
+		}
+
         //オブジェクト配置
         for (int x = 0; x < DungeonManager.WIDTH; x++)
         {
@@ -125,7 +148,7 @@ public class DungeonGenerator : MonoBehaviour
             {
                 instantiateToChildren(floorPrefab, new Vector3(x, -0.5f, z));
                 instantiateToChildren(floorPrefab, new Vector3(x, 0.5f, z));
-                switch (dm.getBlock(x,z))
+				switch (DungeonManager.Instance.getBlock(x,z))
                 {
                     case 1:
                         instantiateToChildren(wallPrefab, new Vector3(x, 0, z));
@@ -150,7 +173,7 @@ public class DungeonGenerator : MonoBehaviour
     {
         GameObject o;
 		o = Instantiate(prefab, v, Quaternion.identity) as GameObject;
-        o.transform.parent = dm.transform;
+		o.transform.parent = DungeonManager.Instance.transform;
     }
 
     int GetNWallDirection(GridPosition position, int distance = 1)
@@ -158,7 +181,7 @@ public class DungeonGenerator : MonoBehaviour
         int direction = Random.Range(0, 4);
         for (int i = 0; i < 4; i++)
         {
-            if (dm.getBlock(position.move(direction, distance)) == 0)
+			if (DungeonManager.Instance.getBlock(position.move(direction, distance)) == 0)
             {
                 return direction;
             }
@@ -172,21 +195,21 @@ public class DungeonGenerator : MonoBehaviour
         GridPosition p = new GridPosition(-1, -1, -1);
         int max = -1;
         //起点をランダム選択
-        for (int i = 1; i < DungeonManager.WIDTH; i += 2)
+		for (int i = offset() + 1; i < DungeonManager.WIDTH - offset() - 1; i += 2)
         {
-            for (int j = 1; j < DungeonManager.HEIGHT; j += 2)
+			for (int j = offset() + 1; j < DungeonManager.HEIGHT - offset() - 1; j += 2)
             {
                 GridPosition q = new GridPosition(i, j);
                 int r = Random.Range(0, 100);
                 int count = 0;
                 for (int k = 0; k < 4; k++)
                 {
-                    if (dm.getBlock(q.move(k)) == 1)
+					if (DungeonManager.Instance.getBlock(q.move(k)) == 1)
                     {
                         count++;
                     }
                 }
-                if (count == 3 && dm.getBlock(i, j) == 0 && r > max)
+				if (count == 3 && DungeonManager.Instance.getBlock(i, j) == 0 && r > max)
                 {
                     max = r;
                     p.set(i, j, 0);

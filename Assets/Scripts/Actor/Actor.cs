@@ -23,7 +23,6 @@ public class Actor : MonoBehaviour
 	private SpriteRenderer sr;
 	private Text damagetext;
 	private Image psareaImage;
-    private DungeonManager dm;
     private int count;
     private int dmgcount;
     public const int MAXCOUNT = 14;
@@ -32,7 +31,6 @@ public class Actor : MonoBehaviour
     {
         count = MAXCOUNT;
         dmgcount = 0;
-        dm = GameObject.FindGameObjectsWithTag("DungeonManager")[0].GetComponent<DungeonManager>();
         actphase = Phase.KEY_WAIT;
 		if (transform.tag == "Actor")
 		{
@@ -47,36 +45,39 @@ public class Actor : MonoBehaviour
 
     void Update()
     {
-        switch (actphase)
-        {
-            case Phase.MOVE_NOW:
-                if (count >= MAXCOUNT - 2)
-                {
-                    actphase = Phase.TURN_END;
-                    pos.x = dest.x;
-                    pos.z = dest.z;
-                    pos.direction = dest.direction;
-                }
-                break;
-            case Phase.ATTACK_START:
-                if (tag == "Actor")
-                {
-                    count = 0;
-                    actphase = Phase.ATTACK_NOW;
-                }
-                break;
-            case Phase.ATTACK_NOW:
-                if (count > MAXCOUNT * 2 / 3) { Attack(); }
-                break;
-            default:
-                break;
-        }
+		switch (actphase)
+		{
+		case Phase.MOVE_NOW:
+			if (count >= MAXCOUNT - 2)
+			{
+				actphase = Phase.TURN_END;
+				pos.x = dest.x;
+				pos.z = dest.z;
+				pos.direction = dest.direction;
+			}
+			break;
+		case Phase.ATTACK_START:
+			if (tag == "Actor")
+			{
+				count = 0;
+				actphase = Phase.ATTACK_NOW;
+			}
+			break;
+		case Phase.ATTACK_NOW:
+			if (count > MAXCOUNT * 2 / 3)
+			{
+				Attack ();
+			}
+			break;
+		default:
+			break;
+		}
 
         if (count < MAXCOUNT) { count++; }
         if (dmgcount > 0)
         {
             dmgcount--;
-            if (transform.tag == "Actor")
+            if (tag == "Actor")
             {
 				if (dmgcount / 3 % 2 == 0)
 				{
@@ -87,7 +88,7 @@ public class Actor : MonoBehaviour
 					sr.enabled = false;
 				}
             }
-			else if (transform.tag == "Player")
+			else if (tag == "Player")
 			{
 				psareaImage.color = new Color (1.0f * dmgcount / MAXCOUNT, 0.0f, 0.0f, 0.25f);
 			}
@@ -103,12 +104,22 @@ public class Actor : MonoBehaviour
     {
         if (actphase == Phase.KEY_WAIT)
         {
-            if (_dest == pos) { actphase = Phase.MOVE_NOW; }
-            else if (!dm.isCollide(_dest)) { actphase = Phase.MOVE_START; }
+            if (_dest == pos)
+			{
+				actphase = Phase.MOVE_NOW;
+			}
+			else if (!DungeonManager.Instance.isCollide(_dest))
+			{
+				actphase = Phase.MOVE_START;
+			}
             if (actphase != Phase.KEY_WAIT)
             {
                 dest = _dest;
-                count = 0;
+				count = 0;
+				if (tag == "Player")
+				{
+					DungeonManager.Instance.dungeonEvent (dest);
+				}
             }
         }
     }
@@ -216,5 +227,4 @@ public class Actor : MonoBehaviour
 		}
 		return v;
 	}
-
 }

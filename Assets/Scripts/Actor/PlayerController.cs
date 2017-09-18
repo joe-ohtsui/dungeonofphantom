@@ -203,6 +203,14 @@ public class PlayerController : MonoBehaviour
 			{
 				MoveBackward ();
 			}
+			else if (moveLeftFlag)
+			{
+				MoveLeft ();
+			}
+			else if (moveRightFlag)
+			{
+				MoveRight ();
+			}
 			else if (Input.GetKey (KeyCode.X) || attackFlag)
 			{
 				Attack ();

@@ -2,16 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DungeonManager : MonoBehaviour
+public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 {
     public const int WIDTH = 19;
     public const int HEIGHT = 19;
+	public int depth = 1;
+	public bool[,] visited;
     private int[,] block;
     Actor player;
 
     public void init()
     {
-        block = new int[WIDTH, HEIGHT];
+		if (this != Instance)
+		{
+			Destroy (this);
+			return;
+		}
+
+		visited = new bool[WIDTH, HEIGHT];
+		block = new int[WIDTH, HEIGHT];
         player = GameObject.FindWithTag("Player").GetComponent<Actor>();
     }
 
@@ -64,4 +73,32 @@ public class DungeonManager : MonoBehaviour
         }
         return flag;
     }
+
+	public void dungeonEvent(GridPosition position)
+	{
+		switch (getBlock (position))
+		{
+		case 4:
+			StartCoroutine (nextFloor ());
+			break;
+		default:
+			break;
+		}
+	}
+
+	private IEnumerator nextFloor()
+	{
+		FadeManager.Instance.StartFadeOut (0.5f);
+		yield return new WaitForSeconds (0.5f);
+		depth++;
+		for (int x = 0; x < WIDTH; x++)
+		{
+			for (int z = 0; z < WIDTH; z++)
+			{
+				visited [x, z] = false;
+			}
+		}
+		DungeonGenerator.Instance.Generate ();
+		FadeManager.Instance.StartFadeIn (0.5f);
+	}
 }
