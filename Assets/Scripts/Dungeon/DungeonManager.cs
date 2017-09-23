@@ -6,7 +6,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 {
     public const int WIDTH = 19;
     public const int HEIGHT = 19;
-	public int depth = 1;
+	public int depth;
 	public bool[,] visited;
     private int[,] block;
     Actor player;

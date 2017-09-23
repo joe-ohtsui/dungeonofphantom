@@ -22,17 +22,17 @@ public class SliderBar : MonoBehaviour
 	
 	void Update ()
     {
-        switch(content)
-        {
-            case Content.Hp:
-                slider.value = 1.0f * param.hp / param.maxHp;
-                break;
-            case Content.Exp:
-                slider.value = 1.0f * param.exp / 256.0f;
-                break;
-            default:
-                slider.value = 0.0f;
-                break;
-        }
+		switch (content)
+		{
+		case Content.Hp:
+			slider.value = 1.0f * param.hp / param.maxHp;
+			break;
+		case Content.Exp:
+			slider.value = GameMaster.Instance.GetExpPercentage ();
+			break;
+		default:
+			slider.value = 0.0f;
+			break;
+		}
 	}
 }

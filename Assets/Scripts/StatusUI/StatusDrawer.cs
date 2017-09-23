@@ -9,7 +9,8 @@ public class StatusDrawer : MonoBehaviour
         Hp,
         Level,
         Sword,
-        Shield
+        Shield,
+		Gold
     }
 
     public Content content;
@@ -28,22 +29,25 @@ public class StatusDrawer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        switch(content)
-        {
-            case Content.Hp:
-                text.text = string.Format("HP:{0,3}/{1,3}", param.hp, param.maxHp);
-                break;
-            case Content.Level:
-                text.text = string.Format("Lv:{0,2}   Exp:", param.level, param.exp);
-                break;
-            case Content.Sword:
-                text.text = string.Format("{0,-12} Atk:{1,3} Hit:{2,3}%", equip.Sword.name, param.atk, param.hit);
-                break;
-            case Content.Shield:
-                text.text = string.Format("{0,-12} Def:{1,3} Eva:{2,3}%", equip.Shield.name, param.def, param.eva);
-                break;
-            default:
-                break;
-        }
+		switch (content)
+		{
+		case Content.Hp:
+			text.text = string.Format ("HP:{0,3}/{1,3}", param.hp, param.maxHp);
+			break;
+		case Content.Level:
+			text.text = string.Format ("Lv:{0,2}   Exp:", param.level);
+			break;
+		case Content.Sword:
+			text.text = string.Format ("{0,-12} Atk:{1,3} Hit:{2,3}%", equip.Sword.name, param.atk, param.hit);
+			break;
+		case Content.Shield:
+			text.text = string.Format ("{0,-12} Def:{1,3} Eva:{2,3}%", equip.Shield.name, param.def, param.eva);
+			break;
+		case Content.Gold:
+			text.text = string.Format ("{0,7}", GameMaster.Instance.gold);
+			break;
+		default:
+			break;
+		}
 	}
 }

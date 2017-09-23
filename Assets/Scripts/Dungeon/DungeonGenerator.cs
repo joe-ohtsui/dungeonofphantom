@@ -8,9 +8,11 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
     public GameObject treasurePrefab;
     public GameObject upstairsPrefab;
     public GameObject downstairsPrefab;
+
+	public GameObject slimePrefab;
     
     void Start ()
-    {
+	{
 		if (this != Instance)
 		{
 			Destroy (this);
@@ -21,12 +23,14 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
     }
 
     public void Generate()
-    {
-        InitFloor();
-        WallExtend();
-        DungeonObject();
-        CreateObject();
-    }
+	{
+		InitFloor ();
+		WallExtend ();
+		DungeonObject ();
+		ClearObject ();
+		CreateObject ();
+		CreateMonster ();
+	}
 
     void InitFloor()
     {
@@ -102,16 +106,6 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         }
     }
 
-	int offset()
-	{
-		int d = 6 - DungeonManager.Instance.depth;
-		if (d < 0)
-		{
-			d = 0;
-		}
-		return d;
-	}
-
     void DungeonObject()
     {
         GridPosition p = getDeadEnd();
@@ -130,8 +124,8 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         }
     }
 
-    void CreateObject()
-    {
+	void ClearObject()
+	{
 		//オブジェクト削除
 		foreach (Transform n in DungeonManager.Instance.transform)
 		{
@@ -140,7 +134,10 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 				GameObject.Destroy (n.gameObject);
 			}
 		}
+	}
 
+    void CreateObject()
+    {
         //オブジェクト配置
         for (int x = 0; x < DungeonManager.WIDTH; x++)
         {
@@ -169,11 +166,21 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         }
     }
 
+	void CreateMonster()
+	{
+		int N = 3 * DungeonManager.Instance.depth / 2 - 1;
+		for (int n = 0; n < N; n++)
+		{
+			instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
+		}
+	}
+
     void instantiateToChildren(GameObject prefab, Vector3 v)
     {
         GameObject o;
 		o = Instantiate(prefab, v, Quaternion.identity) as GameObject;
 		o.transform.parent = DungeonManager.Instance.transform;
+		o.name = prefab.name;
     }
 
     int GetNWallDirection(GridPosition position, int distance = 1)
@@ -217,5 +224,10 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
             }
         }
         return p;
-    }
+	}
+
+	int offset()
+	{
+		return 4 - (DungeonManager.Instance.depth - 1) / 4;
+	}
 }

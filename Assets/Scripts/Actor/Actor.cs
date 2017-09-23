@@ -7,21 +7,17 @@ public class Actor : MonoBehaviour
     public enum Phase
     {
         KEY_WAIT,
-        MOVE_START,
-        MOVE_NOW,
+		MOVE_START,
+        MOVE_ROTATE,
         ATTACK_START,
-        ATTACK_NOW,
         TURN_END
     }
 
     public GridPosition pos;
     public GridPosition dest;
     public Phase actphase;
-	public GameObject damageUI;
-	public GameObject slash;
 
 	private SpriteRenderer sr;
-	private Text damagetext;
 	private Image psareaImage;
     private int count;
     private int dmgcount;
@@ -35,7 +31,6 @@ public class Actor : MonoBehaviour
 		if (transform.tag == "Actor")
 		{
 			sr = GetComponent<SpriteRenderer> ();
-			damagetext = GameObject.Find ("DamageText").GetComponent<Text> ();
 		}
 		else if (transform.tag == "Player")
 		{
@@ -45,9 +40,9 @@ public class Actor : MonoBehaviour
 
     void Update()
     {
-		switch (actphase)
+        if (count < MAXCOUNT)
 		{
-		case Phase.MOVE_NOW:
+			count++;
 			if (count >= MAXCOUNT - 2)
 			{
 				actphase = Phase.TURN_END;
@@ -55,25 +50,7 @@ public class Actor : MonoBehaviour
 				pos.z = dest.z;
 				pos.direction = dest.direction;
 			}
-			break;
-		case Phase.ATTACK_START:
-			if (tag == "Actor")
-			{
-				count = 0;
-				actphase = Phase.ATTACK_NOW;
-			}
-			break;
-		case Phase.ATTACK_NOW:
-			if (count > MAXCOUNT * 2 / 3)
-			{
-				Attack ();
-			}
-			break;
-		default:
-			break;
 		}
-
-        if (count < MAXCOUNT) { count++; }
         if (dmgcount > 0)
         {
             dmgcount--;
@@ -106,107 +83,27 @@ public class Actor : MonoBehaviour
         {
             if (_dest == pos)
 			{
-				actphase = Phase.MOVE_NOW;
+				actphase = Phase.MOVE_ROTATE;
 			}
 			else if (!DungeonManager.Instance.isCollide(_dest))
 			{
 				actphase = Phase.MOVE_START;
+				if (tag == "Player")
+				{
+					DungeonManager.Instance.dungeonEvent (_dest);
+				}
 			}
             if (actphase != Phase.KEY_WAIT)
             {
                 dest = _dest;
 				count = 0;
-				if (tag == "Player")
-				{
-					DungeonManager.Instance.dungeonEvent (dest);
-				}
             }
         }
     }
 
-    public void Attack()
-    {
-        GridPosition p = pos.move(pos.direction);
-        Param param = GetComponent<Param>();
-
-        GameObject player = GameObject.FindWithTag("Player");
-        Actor pla = player.GetComponent<Actor>();
-        if (p == pla.dest)
-        {
-            Param plp = player.GetComponent <Param>();
-			plDamagePrint (pla.damage (param, plp));
-        }
-
-        GameObject[] list = GameObject.FindGameObjectsWithTag("Actor");
-        foreach (GameObject g in list)
-        {
-            Actor ba = g.GetComponent<Actor>();
-            if (ba.pos == p)
-            {
-                Param bp = g.GetComponent<Param>();
-				ba.damagePrint (ba.damage(param, bp), g.transform.name);
-                if (bp.hp == 0)
-				{
-					Destroy(g);
-					LogManager.Instance.PutLog (g.transform.name + "を 倒した");
-				}
-            }
-        }
-
-        actphase = Phase.TURN_END;
-    }
-
-    public int damage(Param a, Param b)
-    {
-        int result = -1;
-        if (Random.Range(0, 100) < a.hit - b.eva)
-        {
-            result = a.atk - b.def;
-            if (result < 1) { result = 1; }
-            result = result * (Random.Range(0, 16) + Random.Range(0, 16) + 30) / 45;
-        }
-        if (result > 0)
-        {
-            dmgcount = MAXCOUNT;
-            b.hp -= result;
-            if (b.hp < 0) { b.hp = 0; }
-        }
-        return result;
-    }
-
-	void damagePrint(int d, string name)
+	public void damaged()
 	{
-		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (pos.x, 0.0f, pos.z), Quaternion.identity);
-		GameObject p = (GameObject)Instantiate (slash, new Vector3 (pos.x, 0.0f, pos.z), Quaternion.identity);
-		o.transform.LookAt(Camera.main.transform.position);
-		p.transform.LookAt(Camera.main.transform.position);
-		if (d < 0)
-		{
-			o.transform.GetChild(0).GetComponent<Text> ().text = "MISS";
-			LogManager.Instance.PutLog ("攻撃は 外れた");
-		}
-		else
-		{
-			o.transform.GetChild(0).GetComponent<Text> ().text = d.ToString ();
-			LogManager.Instance.PutLog (name + "に " + d.ToString() + "ダメージを 与えた");
-		}
-		Destroy (o, 0.5f);
-		Destroy (p, 0.2f);
-	}
-
-	void plDamagePrint(int d)
-	{
-		damagetext.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		damagetext.enabled = true;
-		if (d < 0)
-		{
-			damagetext.text = "MISS";
-		}
-		else
-		{
-			damagetext.text = d.ToString ();
-			LogManager.Instance.PutLog (d.ToString() + "ダメージを 受けた");
-		}
+		dmgcount = MAXCOUNT;
 	}
 
     public Vector3 getLookAt()

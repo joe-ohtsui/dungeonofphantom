@@ -60,7 +60,7 @@
      <Compile Include="Assets\Scripts\Dungeon\DungeonManager.cs" />
      <Compile Include="Assets\Scripts\Dungeon\GridPosition.cs" />
      <Compile Include="Assets\Scripts\FadeManager.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DepthText.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DungeonMap.cs" />

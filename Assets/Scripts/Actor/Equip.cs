@@ -60,19 +60,19 @@ public class Equip
                 name = "SilverSword";
                 atk = 93;
                 hit = 100;
-                gold = 15;
+                gold = 17;
                 break;
             case 3:
                 name = "Claymore";
                 atk = 114;
                 hit = 115;
-                gold = 31;
+                gold = 33;
                 break;
             case 4:
                 name = "Excalibur";
                 atk = 150;
                 hit = 140;
-                gold = 63;
+                gold = 55;
                 break;
             case 8:
                 name = "Buckler";
@@ -90,19 +90,19 @@ public class Equip
                 name = "KiteShield";
                 def = 46;
                 eva = 36;
-                gold = 16;
+                gold = 18;
                 break;
             case 11:
                 name = "TowerShield";
                 def = 57;
                 eva = 49;
-                gold = 34;
+                gold = 38;
                 break;
             case 12:
                 name = "Aegis";
                 def = 75;
                 eva = 70;
-                gold = 70;
+                gold = 66;
                 break;
             default:
                 name = "";

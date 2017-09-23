@@ -18,15 +18,6 @@ public class DungeonMap : MonoBehaviour
         GetComponent<RawImage>().texture = map;
         player = GameObject.FindWithTag("Player").GetComponent<Actor>();
         count = 0;
-
-//        block = new bool[DungeonManager.WIDTH, DungeonManager.HEIGHT];
-//        for (int x = 0; x < DungeonManager.WIDTH; x++)
-//        {
-//            for (int z = 0; z < DungeonManager.HEIGHT; z++)
-//            {
-//                block[x, z] = false;
-//            }
-//        }
     }
 
     void Update()
@@ -34,14 +25,6 @@ public class DungeonMap : MonoBehaviour
         if (count % 6 == 0)
         {
 			DungeonManager.Instance.visited[player.dest.x, player.dest.z] = true;
-//            for (int i = 0; i < 4; i++)
-//            {
-//                GridPosition p = player.dest.move(i);
-//				if (DungeonManager.Instance.getBlock(p) == 1)
-//                {
-//                    block[p.x, p.z] = true;
-//                }
-//            }
 
             Color[] cols = new Color[16384];
             for (int i = 0; i < 16384; i++)
@@ -50,10 +33,10 @@ public class DungeonMap : MonoBehaviour
             }
 
             Color white = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            Color green = new Color(0.25f, 1.0f, 0.75f, 0.5f);
+            Color green = new Color(0.25f, 1.0f, 0.5f, 0.5f);
             Color blue = new Color(0.75f, 0.25f, 1.0f, 0.5f);
             //Color red = new Color(0.75f, 0.0f, 0.0f, 0.5f);
-            Color yellow = new Color(1.0f, 0.875f, 0.25f, 0.5f);
+            Color yellow = new Color(1.0f, 1.0f, 0.0f, 0.5f);
 
 			for (int i = 0; i < 19; i++)
 			{
@@ -126,17 +109,4 @@ public class DungeonMap : MonoBehaviour
         return false;
     }
 
-//    bool getBlock(int x, int z)
-//    {
-//        if (0 <= x && x < DungeonManager.WIDTH && 0 <= z && z < DungeonManager.HEIGHT)
-//        {
-//            return block[x, z];
-//        }
-//        return false;
-//    }
-//
-//    bool getBlock(GridPosition p)
-//    {
-//        return getBlock(p.x, p.z);
-//    }
 }
