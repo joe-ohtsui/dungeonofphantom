@@ -21,7 +21,7 @@ public class Actor : MonoBehaviour
 	private Image psareaImage;
     private int count;
     private int dmgcount;
-    public const int MAXCOUNT = 120;
+    public const int MAXCOUNT = 160;
 
     void Start()
     {
