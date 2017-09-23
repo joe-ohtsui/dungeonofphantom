@@ -39,12 +39,12 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 			count = Actor.MAXCOUNT;
 			break;
 		case Actor.Phase.TURN_END:
-			if (count == 1)
+			if (count <= 1)
 			{
 				EnemiesAttack ();
 				//aging()
 			}
-			if (count == 0)
+			if (count <= 0)
 			{
 				TurnEnd ();
 			}
@@ -55,7 +55,8 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 
 		if (count > 0)
 		{
-			count--;
+			count -= (int)(600 * Time.deltaTime);
+//			count--;
 		}
     }
 

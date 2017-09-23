@@ -21,7 +21,7 @@ public class Actor : MonoBehaviour
 	private Image psareaImage;
     private int count;
     private int dmgcount;
-    public const int MAXCOUNT = 14;
+    public const int MAXCOUNT = 120;
 
     void Start()
     {
@@ -42,8 +42,8 @@ public class Actor : MonoBehaviour
     {
         if (count < MAXCOUNT)
 		{
-			count++;
-			if (count >= MAXCOUNT - 2)
+			count += (int)(600 * Time.deltaTime);
+			if (count >= MAXCOUNT - 10)
 			{
 				actphase = Phase.TURN_END;
 				pos.x = dest.x;
@@ -53,10 +53,10 @@ public class Actor : MonoBehaviour
 		}
         if (dmgcount > 0)
         {
-            dmgcount--;
+			dmgcount -= (int)(600 * Time.deltaTime);
             if (tag == "Actor")
-            {
-				if (dmgcount / 3 % 2 == 0)
+			{
+				if (dmgcount / 30 % 2 == 0)
 				{
 					sr.enabled = true;
 				}
@@ -72,8 +72,8 @@ public class Actor : MonoBehaviour
         }
 
         Vector3 u = transform.position;
-        u.x = 1.0f * (pos.x * (MAXCOUNT - count - 2) + dest.x * count) / (MAXCOUNT - 2);
-        u.z = 1.0f * (pos.z * (MAXCOUNT - count - 2) + dest.z * count) / (MAXCOUNT - 2);
+		u.x = 1.0f * (pos.x * (MAXCOUNT - count - 10) + dest.x * count) / (MAXCOUNT - 10);
+		u.z = 1.0f * (pos.z * (MAXCOUNT - count - 10) + dest.z * count) / (MAXCOUNT - 10);
         transform.position = u;
     }
 
@@ -111,16 +111,16 @@ public class Actor : MonoBehaviour
 		GridPosition p = pos.move (pos.direction);
 		GridPosition q = dest.move (dest.direction);
 		Vector3 v = new Vector3 ();
-		v.x = 1.0f * (p.x * (MAXCOUNT - count - 2) + q.x * count) / (MAXCOUNT - 2);
-		v.z = 1.0f * (p.z * (MAXCOUNT - count - 2) + q.z * count) / (MAXCOUNT - 2);
+		v.x = 1.0f * (p.x * (MAXCOUNT - count - 10) + q.x * count) / (MAXCOUNT - 10);
+		v.z = 1.0f * (p.z * (MAXCOUNT - count - 10) + q.z * count) / (MAXCOUNT - 10);
 		if (MAXCOUNT / 3 < count && count < MAXCOUNT * 2 / 3)
 		{
 			v.y = 0.01f;
 		}
 		if (dmgcount > 0)
 		{
-			v.x += 0.08f * (dmgcount / 4 % 2) - 0.04f;
-			v.z += 0.08f * (dmgcount / 4 % 2) - 0.04f;
+			v.x += 0.08f * (dmgcount / 40 % 2) - 0.04f;
+			v.z += 0.08f * (dmgcount / 40 % 2) - 0.04f;
 		}
 		return v;
 	}
