@@ -56,7 +56,6 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 		if (count > 0)
 		{
 			count -= (int)(600 * Time.deltaTime);
-//			count--;
 		}
     }
 
@@ -149,7 +148,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 		else
 		{
 			o.transform.GetChild (0).GetComponent<Text> ().text = d.ToString ();
-			LogManager.Instance.PutLog (target.transform.name + "に " + d.ToString () + "ダメージを 与えた");
+			LogManager.Instance.PutLog (string.Format ("{0}に {1}ダメージを 与えた", target.name, d));
 			a.damaged ();
 		}
 		Destroy (o, 0.5f);
@@ -167,7 +166,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 		else
 		{
 			damagetext.text = d.ToString ();
-			LogManager.Instance.PutLog (d.ToString () + "ダメージを 受けた");
+			LogManager.Instance.PutLog (string.Format("{0}ダメージを 受けた", d));
 			target.GetComponent<Actor> ().damaged ();
 		}
 	}

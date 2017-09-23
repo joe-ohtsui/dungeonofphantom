@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    Actor player;
+	GameObject player;
+	Actor pla;
 	bool buttonClicked = false;
 	bool moveForwardFlag = false;
 	bool moveBackwardFlag = false;
@@ -15,7 +16,8 @@ public class PlayerController : MonoBehaviour
 
     void Start ()
     {
-        player = GetComponent<Actor>();
+		player = GameObject.FindWithTag ("Player");
+		pla = player.GetComponent<Actor>();
     }
 
 	private Vector3 touchStartPos;
@@ -150,42 +152,42 @@ public class PlayerController : MonoBehaviour
 
 	void TurnLeft()
 	{
-		player.setDest(player.pos.toLeft());
+		pla.setDest(pla.pos.toLeft());
 	}
 
 	void TurnRight()
 	{
-		player.setDest(player.pos.toRight());
+		pla.setDest(pla.pos.toRight());
 	}
 
 	void MoveForward()
 	{
-		player.setDest(player.pos.move(player.pos.direction));
+		pla.setDest(pla.pos.move(pla.pos.direction));
 	}
 
 	void MoveBackward()
 	{
-		player.setDest(player.pos.move((player.pos.direction + 2) % 4));
+		pla.setDest(pla.pos.move((pla.pos.direction + 2) % 4));
 	}
 
 	void MoveLeft()
 	{
-		player.setDest(player.pos.move((player.pos.direction + 3) % 4));
+		pla.setDest(pla.pos.move((pla.pos.direction + 3) % 4));
 	}
 
 	void MoveRight()
 	{
-		player.setDest(player.pos.move((player.pos.direction + 1) % 4));
+		pla.setDest(pla.pos.move((pla.pos.direction + 1) % 4));
 	}
 
 	void Attack()
 	{
-		player.actphase = Actor.Phase.ATTACK_START;
+		pla.actphase = Actor.Phase.ATTACK_START;
 	}
 	
 	void Update ()
     {
-        if (player.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
+        if (pla.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
         {
 			if (Input.GetKey (KeyCode.LeftArrow) || turnLeftFlag)
 			{
@@ -222,7 +224,7 @@ public class PlayerController : MonoBehaviour
 			}
         }
 		buttonClicked = false;
-        transform.LookAt(player.getLookAt());
+        player.transform.LookAt(pla.getLookAt());
     }
     
 }

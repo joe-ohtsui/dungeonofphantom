@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Dungeon\GridPosition.cs" />
      <Compile Include="Assets\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
+     <Compile Include="Assets\Scripts\ItemButtonText.cs" />
      <Compile Include="Assets\Scripts\OpenInventory.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
      <Compile Include="Assets\Scripts\StatusUI\DepthText.cs" />
@@ -68,7 +69,7 @@
      <Compile Include="Assets\Scripts\StatusUI\LogDrawer.cs" />
      <Compile Include="Assets\Scripts\StatusUI\LogManager.cs" />
      <Compile Include="Assets\Scripts\StatusUI\SliderBar.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\StatusDrawer.cs" />
+     <Compile Include="Assets\Scripts\StatusUI\StatusText.cs" />
      <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />
      <Compile Include="Assets\Scripts\Title\TapToStart.cs" />
      <None Include="Assets\Shader\DoubleSideShader.shader" />

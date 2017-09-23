@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class StatusDrawer : MonoBehaviour
+public class StatusText : MonoBehaviour
 {
-    public enum Content
+    public enum Entry
     {
         Hp,
         Level,
@@ -13,7 +13,7 @@ public class StatusDrawer : MonoBehaviour
 		Gold
     }
 
-    public Content content;
+    public Entry entry;
     private Text text;
     private Param param;
     private EqBuff equip;
@@ -29,21 +29,21 @@ public class StatusDrawer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		switch (content)
+		switch (entry)
 		{
-		case Content.Hp:
+		case Entry.Hp:
 			text.text = string.Format ("HP:{0,3}/{1,3}", param.hp, param.maxHp);
 			break;
-		case Content.Level:
+		case Entry.Level:
 			text.text = string.Format ("Lv:{0,2}   Exp:", param.level);
 			break;
-		case Content.Sword:
+		case Entry.Sword:
 			text.text = string.Format ("{0,-12} Atk:{1,3} Hit:{2,3}%", equip.Sword.name, param.atk, param.hit);
 			break;
-		case Content.Shield:
+		case Entry.Shield:
 			text.text = string.Format ("{0,-12} Def:{1,3} Eva:{2,3}%", equip.Shield.name, param.def, param.eva);
 			break;
-		case Content.Gold:
+		case Entry.Gold:
 			text.text = string.Format ("{0,7}", GameMaster.Instance.gold);
 			break;
 		default:
