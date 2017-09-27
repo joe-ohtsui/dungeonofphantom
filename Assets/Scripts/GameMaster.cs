@@ -3,8 +3,6 @@ using System.Collections;
 
 public class GameMaster : SingletonMonoBehaviour<GameMaster>
 {
-	private Param param;
-	private EqBuff equip;
     public int gold;
 	public int[] itemNum;
 
@@ -19,13 +17,13 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 		DontDestroyOnLoad (this.gameObject);
 
-		param = GameObject.FindWithTag("Player").GetComponent<Param>();
-		equip = GameObject.FindWithTag("Player").GetComponent<EqBuff>();
+//		EqBuffequip = GameObject.FindWithTag("Player").GetComponent<EqBuff>();
 		itemNum = new int[6]{ 19, 19, 19, 19, 19, 19 };
 	}
 	
 	public float GetExpPercentage()
 	{
+		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
 		int baseExp = nextExp (param.level);
 		if (param.level == 15) 
 		{
@@ -36,6 +34,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 	public void ObtainExp(int value)
 	{
+		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
 		param.exp += value;
 		if (param.exp >= nextExp(param.level + 1) && param.level < 15)
 		{
