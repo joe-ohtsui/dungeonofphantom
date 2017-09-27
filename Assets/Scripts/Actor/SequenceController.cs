@@ -28,25 +28,26 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 		switch (pla.actphase)
 		{
 		case Actor.Phase.MOVE_START:
+			player.GetComponent<EqBuff> ().aging ();
 			pla.actphase = Actor.Phase.TURN_END;
 			CallEnemiesAI ();
 			count = Actor.MAXCOUNT;
 			break;
 		case Actor.Phase.ATTACK_START:
 			Attack (player);
+			player.GetComponent<EqBuff> ().aging ();
 			pla.actphase = Actor.Phase.TURN_END;
 			CallEnemiesAI ();
 			count = Actor.MAXCOUNT;
 			break;
 		case Actor.Phase.TURN_END:
-			if (count <= 10)
-			{
-				EnemiesAttack ();
-				//aging()
-			}
 			if (count <= 0)
 			{
 				TurnEnd ();
+			}
+			else if (count <= 10)
+			{
+				EnemiesAttack ();
 			}
 			break;
 		default:

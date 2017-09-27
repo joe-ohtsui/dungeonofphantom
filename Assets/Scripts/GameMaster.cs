@@ -57,4 +57,80 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 		return level * level * level;
 	}
+
+	public void getTreasure()
+	{
+		int result = 6;
+		int s = Random.Range (0, 255);
+		if (s < 12)
+		{
+			result = 5;
+		}
+		else if (s < 25)
+		{
+			result = 0;
+		}
+		else if (s < 40)
+		{
+			result = 1;
+		}
+		else if (s < 57)
+		{
+			result = 3;
+		}
+		else if (s < 77)
+		{
+			result = 2;
+		}
+		else if (s < 100)
+		{
+			result = 4;
+		}
+		if (result != 6)
+		{
+			if (itemNum [result] < 99)
+			{
+				itemNum [result]++;
+				switch (result)
+				{
+				case 0:
+					LogManager.Instance.PutLog("Rec Potionを 見つけた");
+					break;
+				case 1:
+					LogManager.Instance.PutLog("Atk Potionを 見つけた");
+					break;
+				case 2:
+					LogManager.Instance.PutLog("Def Potionを 見つけた");
+					break;
+				case 3:
+					LogManager.Instance.PutLog("Hit Potionを 見つけた");
+					break;
+				case 4:
+					LogManager.Instance.PutLog("Eva Potionを 見つけた");
+					break;
+				case 5:
+					LogManager.Instance.PutLog("Trap Guardを 見つけた");
+					break;
+				default:
+					break;
+				}
+			}
+			else
+			{
+				result = 6;
+			}
+		}
+		if (result == 6)
+		{
+			int g = Random.Range (1, 20) + Random.Range (1, 20) + 19;
+			gold += g;
+			if (gold > 9999999)
+			{
+				gold = 9999999;
+			}
+			LogManager.Instance.PutLog (string.Format(g.ToString() + " Gを 見つけた"));
+		}
+		//getexp();
+	}
+
 }

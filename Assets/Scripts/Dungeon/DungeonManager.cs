@@ -81,8 +81,25 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		case 4:
 			StartCoroutine (nextFloor ());
 			break;
+		case 6:
+			GameMaster.Instance.getTreasure ();
+			destroyTreasureBox (position);
+			break;
 		default:
 			break;
+		}
+	}
+
+	void destroyTreasureBox(GridPosition position)
+	{
+		DungeonManager.Instance.setBlock(position, 0);
+		foreach (Transform n in DungeonManager.Instance.transform)
+		{
+			if (n.name == "Treasure" && n.position.x == position.x && n.position.z == position.z)
+			{
+				GameObject.Destroy (n.gameObject, 0.25f);
+				break;
+			}
 		}
 	}
 

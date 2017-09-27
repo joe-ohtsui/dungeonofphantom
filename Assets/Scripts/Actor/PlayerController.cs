@@ -150,6 +150,47 @@ public class PlayerController : MonoBehaviour
 		attackFlag = true;
 	}
 
+	public void UseItemButtonClicked(int itemID)
+	{
+		Param p = player.GetComponent<Param> ();
+		EqBuff e = player.GetComponent<EqBuff> ();
+		if (GameMaster.Instance.itemNum [itemID] > 0)
+		{
+			switch (itemID)
+			{
+			case 0:
+				p.hp += 80;
+				if (p.hp > p.maxHp)
+				{
+					p.hp = p.maxHp;
+				}
+				LogManager.Instance.PutLog("Rec Potionを 使った");
+				break;
+			case 1:
+				e.atkForce = 11;
+				LogManager.Instance.PutLog("Atk Potionを 使った");
+				break;
+			case 2:
+				e.defForce = 11;
+				LogManager.Instance.PutLog("Def Potionを 使った");
+				break;
+			case 3:
+				e.hitForce = 11;
+				LogManager.Instance.PutLog("Hit Potionを 使った");
+				break;
+			case 4:
+				e.evaForce = 11;
+				break;
+			default:
+				break;
+			}
+			GameMaster.Instance.itemNum [itemID]--;
+			e.calcParam ();
+			pla.actphase = Actor.Phase.MOVE_START;
+			buttonClicked = true;
+		}
+	}
+
 	void TurnLeft()
 	{
 		pla.setDest(pla.pos.toLeft());
