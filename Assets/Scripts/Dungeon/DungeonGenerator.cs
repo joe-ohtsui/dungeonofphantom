@@ -173,7 +173,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		int N = 3 * DungeonManager.Instance.depth / 2 - 1;
 		for (int n = 0; n < N; n++)
 		{
-			if (Random.Range (1, 2) == 1) {
+			if (Random.Range (0, 2) == 1) {
 				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
 			} else {
 				instantiateToChildren (ratPrefab, new Vector3 (9, 0, 9));
