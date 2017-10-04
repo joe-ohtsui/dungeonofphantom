@@ -14,6 +14,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 	public GameObject hornetPrefab;
 	public GameObject zombiePrefab;
 	public GameObject skeletonPrefab;
+	public GameObject dragonewtPrefab;
     
     void Start ()
 	{
@@ -182,7 +183,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 			} else if (r < d - 603) {
 				//taurus
 			} else if (r < d - 517) {
-				//lizardman
+				instantiateToChildren (dragonewtPrefab, new Vector3 (9, 0, 9));
 			} else if (r < d - 431) {
 				instantiateToChildren (skeletonPrefab, new Vector3 (9, 0, 9));
 			} else if (r < d - 345) {
@@ -192,7 +193,8 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 			} else if (r < d - 173) {
 				instantiateToChildren (ratPrefab, new Vector3 (9, 0, 9));
 			} else {
-				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
+				instantiateToChildren (dragonewtPrefab, new Vector3 (9, 0, 9));
+//				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
 			}
 		}
 	}

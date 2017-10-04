@@ -23,10 +23,10 @@ public class EqBuff : MonoBehaviour
         defForce = 0;
         hitForce = 0;
         evaForce = 0;
-		Sword.set(4, 15, 15, 15, 15);
-		Shield.set(12, 15, 15, 15, 15);
-//		Sword.set(0, 0, 15, 0, 15);
-//		Shield.set(8, 15, 0, 15, 0);
+//		Sword.set(4, 15, 15, 15, 15);
+//		Shield.set(12, 15, 15, 15, 15);
+		Sword.set(0, 0, 15, 0, 15);
+		Shield.set(8, 15, 0, 15, 0);
         calcParam();
     }
 
