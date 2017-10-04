@@ -12,6 +12,8 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 	public GameObject slimePrefab;
 	public GameObject ratPrefab;
 	public GameObject hornetPrefab;
+	public GameObject zombiePrefab;
+	public GameObject skeletonPrefab;
     
     void Start ()
 	{
@@ -173,10 +175,24 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		int N = 3 * DungeonManager.Instance.depth / 2 - 1;
 		for (int n = 0; n < N; n++)
 		{
-			if (Random.Range (0, 2) == 1) {
-				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
-			} else {
+			int r = Random.Range (0, 256);
+			int d = 43 * DungeonManager.Instance.depth;
+			if (r < d - 689) {
+				//demon
+			} else if (r < d - 603) {
+				//taurus
+			} else if (r < d - 517) {
+				//lizardman
+			} else if (r < d - 431) {
+				instantiateToChildren (skeletonPrefab, new Vector3 (9, 0, 9));
+			} else if (r < d - 345) {
+				instantiateToChildren (zombiePrefab, new Vector3 (9, 0, 9));
+			} else if (r < d - 259) {
+				instantiateToChildren (hornetPrefab, new Vector3 (9, 0, 9));
+			} else if (r < d - 173) {
 				instantiateToChildren (ratPrefab, new Vector3 (9, 0, 9));
+			} else {
+				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
 			}
 		}
 	}
