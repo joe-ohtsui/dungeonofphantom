@@ -46,32 +46,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\OpenTradeArea.cs" />
      <Compile Include="Assets\Scripts\Actor\Actor.cs" />
      <Compile Include="Assets\Scripts\Actor\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Actor\EqBuff.cs" />
      <Compile Include="Assets\Scripts\Actor\Equip.cs" />
-     <Compile Include="Assets\Scripts\Actor\MonsterImage.cs" />
      <Compile Include="Assets\Scripts\Actor\Param.cs" />
      <Compile Include="Assets\Scripts\Actor\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Actor\SequenceController.cs" />
-     <Compile Include="Assets\Scripts\Actor\TextFadeOut.cs" />
-     <Compile Include="Assets\Scripts\BillBoard.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\BillBoard.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonManager.cs" />
      <Compile Include="Assets\Scripts\Dungeon\GridPosition.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\MonsterImage.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\TextFadeOut.cs" />
      <Compile Include="Assets\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
-     <Compile Include="Assets\Scripts\ItemButtonText.cs" />
-     <Compile Include="Assets\Scripts\OpenInventory.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\DepthText.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\DungeonMap.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\LogDrawer.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\LogManager.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\SliderBar.cs" />
-     <Compile Include="Assets\Scripts\StatusUI\StatusText.cs" />
      <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />
      <Compile Include="Assets\Scripts\Title\TapToStart.cs" />
+     <Compile Include="Assets\Scripts\Town\BuyButtonCheck.cs" />
+     <Compile Include="Assets\Scripts\Town\TownDisplayArea.cs" />
+     <Compile Include="Assets\Scripts\Town\TownManager.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonPop.cs" />
+     <Compile Include="Assets\Scripts\UI\CanvasSwitch.cs" />
+     <Compile Include="Assets\Scripts\UI\DepthText.cs" />
+     <Compile Include="Assets\Scripts\UI\DialogManager.cs" />
+     <Compile Include="Assets\Scripts\UI\DungeonMap.cs" />
+     <Compile Include="Assets\Scripts\UI\ItemButtonText.cs" />
+     <Compile Include="Assets\Scripts\UI\LogDrawer.cs" />
+     <Compile Include="Assets\Scripts\UI\LogManager.cs" />
+     <Compile Include="Assets\Scripts\UI\SliderBar.cs" />
+     <Compile Include="Assets\Scripts\UI\StatusText.cs" />
      <None Include="Assets\Shader\DoubleSideShader.shader" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

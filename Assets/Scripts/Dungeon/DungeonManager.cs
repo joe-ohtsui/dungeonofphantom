@@ -78,6 +78,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 	{
 		switch (getBlock (position))
 		{
+		case 2:
+			returnToTown ();
+			break;
 		case 4:
 			StartCoroutine (nextFloor ());
 			break;
@@ -88,6 +91,11 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		default:
 			break;
 		}
+	}
+
+	void returnToTown()
+	{
+		FadeManager.Instance.LoadLevel ("Town", 0.5f);
 	}
 
 	void destroyTreasureBox(GridPosition position)
@@ -116,6 +124,8 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 			}
 		}
 		DungeonGenerator.Instance.Generate ();
+		LogManager.Instance.PutLog (string.Format ("{0}Fに 到達した", depth));
+		GameMaster.Instance.ObtainExp (2 + depth / 2);
 		FadeManager.Instance.StartFadeIn (0.5f);
 	}
 }

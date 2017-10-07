@@ -28,14 +28,14 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 		switch (pla.actphase)
 		{
 		case Actor.Phase.MOVE_START:
-			player.GetComponent<EqBuff> ().aging ();
+			GameMaster.Instance.aging ();
 			pla.actphase = Actor.Phase.TURN_END;
 			CallEnemiesAI ();
 			count = Actor.MAXCOUNT;
 			break;
 		case Actor.Phase.ATTACK_START:
 			Attack (player);
-			player.GetComponent<EqBuff> ().aging ();
+			GameMaster.Instance.aging ();
 			pla.actphase = Actor.Phase.TURN_END;
 			CallEnemiesAI ();
 			count = Actor.MAXCOUNT;
@@ -101,9 +101,9 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 				damagePrint (g, damage (q, bp));
 				if (bp.hp == 0)
 				{
-					Destroy (g);
 					LogManager.Instance.PutLog (g.transform.name + "を 倒した");
-					GameMaster.Instance.ObtainExp (3);
+					GameMaster.Instance.ObtainExp (bp.exp);
+					Destroy (g);
 				}
 			}
 		}

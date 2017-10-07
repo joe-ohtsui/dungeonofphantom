@@ -3,8 +3,11 @@ using System.Collections;
 
 public class GameMaster : SingletonMonoBehaviour<GameMaster>
 {
+	public int level;
+	public int exp;
     public int gold;
 	public int[] itemNum;
+	public EqBuff equip;
 
 	// Use this for initialization
 	void Awake ()
@@ -17,71 +20,107 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 		DontDestroyOnLoad (this.gameObject);
 
-//		EqBuffequip = GameObject.FindWithTag("Player").GetComponent<EqBuff>();
-		itemNum = new int[6]{ 19, 19, 19, 19, 19, 19 };
+		itemNum = new int[6]{ 0, 0, 0, 0, 0, 0 };
+		equip = new EqBuff ();
+		calcParam ();
 	}
 	
 	public float GetExpPercentage()
 	{
 		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
 		int baseExp = nextExp (param.level);
-		if (param.level == 15) 
+		if (level == 15) 
 		{
 			return 1.0f;
 		}
-		return 1.0f * (param.exp - baseExp) / (nextExp (param.level + 1) - baseExp);
+		return 1.0f * (exp - baseExp) / (nextExp (level + 1) - baseExp);
 	}
 
 	public void ObtainExp(int value)
 	{
 		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
-		param.exp += value;
-		if (param.exp >= nextExp(param.level + 1) && param.level < 15)
+		exp += value;
+		if (exp >= nextExp(level + 1) && level < 15)
 		{
-			param.level++;
-			param.maxHp = param.level * (param.level + 9) / 2 + 75;
+			level++;
+			calcParam ();
 			LogManager.Instance.PutLog (string.Format ("Lv{0}に 上がった", param.level));
 		}
 	}
 
-	private int nextExp(int level)
+	private int nextExp(int l)
 	{
-		if (level == 1)
+		if (l == 1)
 		{
 			return 0;
 		}
-		if (level > 15)
+		if (l > 15)
 		{
 			return nextExp (15);
 		}
-		return level * level * level;
+		return l * l * l;
+	}
+
+	public void aging()
+	{
+		if (equip.atkForce > 0) {
+			equip.atkForce--;
+		}
+		if (equip.defForce > 0) {
+			equip.defForce--;
+		}
+		if (equip.hitForce > 0) {
+			equip.hitForce--;
+		}
+		if (equip.evaForce > 0) {
+			equip.evaForce--;
+		}
+		calcParam ();
+	}
+
+	public void calcParam()
+	{
+		Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
+		param.level = level;
+		param.maxHp = level * (level + 9) / 2 + 75;
+		param.atk = equip.Sword.atk * (100 + equip.atkForce * 7) / 100;
+		param.def = equip.Shield.def * (100 + equip.defForce * 6) / 100;
+		param.hit = equip.Sword.hit * (100 + equip.hitForce * 9) / 100;
+		param.eva = equip.Shield.eva * (100 + equip.evaForce * 8) / 100;
+	}
+
+	public void maxHp()
+	{
+		Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
+		param.maxHp = level * (level + 9) / 2 + 75;
+		param.hp = param.maxHp;
 	}
 
 	public void getTreasure()
 	{
 		int result = 6;
-		int s = Random.Range (0, 255);
-		if (s < 12)
+		int s = Random.Range (0, 256);
+		if (s < 24)
 		{
 			result = 5;
 		}
-		else if (s < 25)
+		else if (s < 50)
 		{
 			result = 0;
 		}
-		else if (s < 40)
+		else if (s < 80)
 		{
 			result = 1;
 		}
-		else if (s < 57)
+		else if (s < 114)
 		{
 			result = 3;
 		}
-		else if (s < 77)
+		else if (s < 154)
 		{
 			result = 2;
 		}
-		else if (s < 100)
+		else if (s < 200)
 		{
 			result = 4;
 		}
@@ -129,6 +168,6 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			}
 			LogManager.Instance.PutLog (string.Format(g.ToString() + " Gを 見つけた"));
 		}
-		//getexp();
+		GameMaster.Instance.ObtainExp (1);
 	}
 }

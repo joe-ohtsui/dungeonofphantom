@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenInventory : MonoBehaviour {
+public class CanvasSwitch : MonoBehaviour {
 
 	Canvas c;
 
 	void Awake()
 	{
 		c = GetComponent<Canvas>();
-		c.enabled = false;
 	}
 
-	public void OnClick()
+	public void Switch()
 	{
 		c.enabled = !c.enabled;
+	}
+
+	public void EnableCanvas()
+	{
+		c.enabled = true;
+	}
+
+	public void DisableCanvas()
+	{
+		c.enabled = false;
 	}
 }

@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 			GetDirection ();
 		}
+
 	}
 
 	void GetDirection()
@@ -153,7 +154,7 @@ public class PlayerController : MonoBehaviour
 	public void UseItemButtonClicked(int itemID)
 	{
 		Param p = player.GetComponent<Param> ();
-		EqBuff e = player.GetComponent<EqBuff> ();
+		EqBuff equip = GameMaster.Instance.equip;
 		if (GameMaster.Instance.itemNum [itemID] > 0)
 		{
 			switch (itemID)
@@ -167,28 +168,29 @@ public class PlayerController : MonoBehaviour
 				LogManager.Instance.PutLog("Rec Potionを 使った");
 				break;
 			case 1:
-				e.atkForce = 11;
+				equip.atkForce = 11;
 				LogManager.Instance.PutLog("Atk Potionを 使った");
 				break;
 			case 2:
-				e.defForce = 11;
+				equip.defForce = 11;
 				LogManager.Instance.PutLog("Def Potionを 使った");
 				break;
 			case 3:
-				e.hitForce = 11;
+				equip.hitForce = 11;
 				LogManager.Instance.PutLog("Hit Potionを 使った");
 				break;
 			case 4:
-				e.evaForce = 11;
+				equip.evaForce = 11;
+				LogManager.Instance.PutLog("Eva Potionを 使った");
 				break;
 			default:
 				break;
 			}
 			GameMaster.Instance.itemNum [itemID]--;
-			e.calcParam ();
+			GameMaster.Instance.calcParam ();
 			pla.actphase = Actor.Phase.MOVE_START;
-			buttonClicked = true;
 		}
+		buttonClicked = true;
 	}
 
 	void TurnLeft()

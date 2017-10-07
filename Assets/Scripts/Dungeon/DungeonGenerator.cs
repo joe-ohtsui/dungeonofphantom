@@ -29,6 +29,8 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		}
 
         Generate();
+		GameMaster.Instance.calcParam ();
+		GameMaster.Instance.maxHp ();
     }
 
     public void Generate()
@@ -197,8 +199,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 			} else if (r < d - 173) {
 				instantiateToChildren (ratPrefab, new Vector3 (9, 0, 9));
 			} else {
-				instantiateToChildren (phantomPrefab, new Vector3 (9, 0, 9));
-//				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
+				instantiateToChildren (slimePrefab, new Vector3 (9, 0, 9));
 			}
 		}
 	}
