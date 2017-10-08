@@ -17,7 +17,7 @@ public class SaveLoad : SingletonMonoBehaviour<SaveLoad> {
 
 	public void save()
 	{
-		string folderpath = Application.dataPath + "/Database/";
+		string folderpath = Application.temporaryCachePath + "/Database/";
 		string filepath = folderpath + "save.json";
 		string json = GameMaster.Instance.toJson ();
 		string crypted = Crypt.Encrypt (json);
@@ -35,7 +35,7 @@ public class SaveLoad : SingletonMonoBehaviour<SaveLoad> {
 
 	public void load()
 	{
-		string folderpath = Application.dataPath + "/Database/";
+		string folderpath = Application.temporaryCachePath + "/Database/";
 		string filepath = folderpath + "save.json";
 		string json = "";
 

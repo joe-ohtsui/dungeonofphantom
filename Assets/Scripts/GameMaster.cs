@@ -87,8 +87,10 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		param.maxHp = level * (level + 9) / 2 + 75;
 		param.atk = equip.Sword.atk * (100 + equip.atkForce * 7) / 100;
 		param.def = equip.Shield.def * (100 + equip.defForce * 6) / 100;
-		param.hit = equip.Sword.hit * (100 + equip.hitForce * 9) / 100;
-		param.eva = equip.Shield.eva * (100 + equip.evaForce * 8) / 100;
+		param.hit = equip.Sword.hit + equip.hitForce * 9;
+		param.eva = equip.Shield.eva + equip.evaForce * 8;
+//		param.hit = equip.Sword.hit * (100 + equip.hitForce * 9) / 100;
+//		param.eva = equip.Shield.eva * (100 + equip.evaForce * 8) / 100;
 	}
 
 	public void maxHp()
@@ -102,27 +104,27 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 	{
 		int result = 6;
 		int s = Random.Range (0, 256);
-		if (s < 24)
+		if (s < 12)
 		{
 			result = 5;
 		}
-		else if (s < 50)
+		else if (s < 25)
 		{
 			result = 0;
 		}
-		else if (s < 80)
+		else if (s < 40)
 		{
 			result = 1;
 		}
-		else if (s < 114)
+		else if (s < 57)
 		{
 			result = 3;
 		}
-		else if (s < 154)
+		else if (s < 77)
 		{
 			result = 2;
 		}
-		else if (s < 200)
+		else if (s < 100)
 		{
 			result = 4;
 		}
