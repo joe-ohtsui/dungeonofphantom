@@ -42,6 +42,10 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 	{
 		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
 		exp += value;
+		if (exp > 9999)
+		{
+			exp = 9999;
+		}
 		if (exp >= nextExp(level + 1) && level < 15)
 		{
 			level++;
@@ -60,7 +64,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		{
 			return nextExp (15);
 		}
-		return l * l * l;
+		return 5 * l * l * l - 40 * l * l + 153 * l - 171;
 	}
 
 	public void aging()
@@ -89,8 +93,6 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		param.def = equip.Shield.def * (100 + equip.defForce * 6) / 100;
 		param.hit = equip.Sword.hit + equip.hitForce * 9;
 		param.eva = equip.Shield.eva + equip.evaForce * 8;
-//		param.hit = equip.Sword.hit * (100 + equip.hitForce * 9) / 100;
-//		param.eva = equip.Shield.eva * (100 + equip.evaForce * 8) / 100;
 	}
 
 	public void maxHp()
