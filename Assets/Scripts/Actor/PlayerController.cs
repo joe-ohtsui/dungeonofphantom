@@ -35,6 +35,14 @@ public class PlayerController : MonoBehaviour
 			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 			GetDirection ();
 		}
+		if (Input.GetKey (KeyCode.Mouse0))
+		{
+			count += (int)(600 * Time.deltaTime);
+		}
+		else
+		{
+			count = 0;
+		}
 	}
 
 	void GetDirection()
@@ -47,16 +55,16 @@ public class PlayerController : MonoBehaviour
 			if (40 < dx)
 			{
 				//右向きにフリックされた
-				TurnLeft ();
+				turnLeftFlag = true;
 			}
 			else if (-40 > dx)
 			{
 				//左向きにフリックされた
-				TurnRight ();
+				turnRightFlag = true;
 			}
 			else
 			{
-				MoveForward ();
+				moveForwardFlag = true;
 			}
 		}
 		else
@@ -64,16 +72,11 @@ public class PlayerController : MonoBehaviour
 			if (40 < dy)
 			{
 				//上向きにフリックされた
-				MoveBackward ();
-			}
-			else if (-40 > dy)
-			{
-				//下向きにフリックされた
-				MoveForward ();
+				moveBackwardFlag = true;
 			}
 			else
 			{
-				MoveForward ();
+				moveForwardFlag = true;
 			}
 		}
 	}
@@ -233,14 +236,7 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
-		if (Input.GetKey (KeyCode.Mouse0))
-		{
-			count += (int)(600 * Time.deltaTime);
-		}
-		else
-		{
-			count = 0;
-		}
+		Flick ();
 
         if (pla.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
         {
@@ -273,10 +269,10 @@ public class PlayerController : MonoBehaviour
 				Attack ();
 				attackFlag = false;
 			}
-			else
-			{
-				Flick ();
-			}
+//			else
+//			{
+//				Flick ();
+//			}
         }
 		buttonClicked = false;
         player.transform.LookAt(pla.getLookAt());

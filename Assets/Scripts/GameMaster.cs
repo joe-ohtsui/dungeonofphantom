@@ -166,7 +166,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 		if (result == 6)
 		{
-			int g = Random.Range (0, 20) + Random.Range (0, 20) + DungeonManager.Instance.depth * 5 + 23;
+			int g = Random.Range (0, 20) + Random.Range (0, 20) + DungeonManager.Instance.depth * 5 + 26;
 			gold += g;
 			if (gold > 9999999)
 			{
