@@ -111,7 +111,6 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 			}
 			break;
 		default:
-			return false;
 			break;
 		}
 		return true;

@@ -22,9 +22,11 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 		itemNum = new int[6]{ 0, 0, 0, 0, 0, 0 };
 		equip = new EqBuff ();
+		SaveLoad.Instance.load ();
+
 		calcParam ();
 	}
-	
+
 	public float GetExpPercentage()
 	{
 		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
@@ -169,5 +171,55 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			LogManager.Instance.PutLog (string.Format(g.ToString() + " Gを 見つけた"));
 		}
 		GameMaster.Instance.ObtainExp (1);
+	}
+
+	public string toJson()
+	{
+		SaveData data = new SaveData ();
+		int i = itemNum [0] + itemNum [1] + itemNum [2];
+		int j = itemNum [3] + itemNum [4] + itemNum [5];
+		data.i = itemNum[0] + itemNum[1] * 101 + itemNum[2] * 10201 + i * 1030301;
+		data.j = itemNum[3] + itemNum[4] * 101 + itemNum[5] * 10201 + j * 1030301;
+		data.x = gold + exp;
+		data.g = gold - exp;
+		data.w = equip.Sword.toInt();
+		data.h = equip.Shield.toInt();
+		string json = JsonUtility.ToJson (data);
+		Debug.Log ("json:" + json);
+		return json;
+	}
+
+	public void fromJson(string json)
+	{
+		SaveData data = JsonUtility.FromJson<SaveData> (json);
+		itemNum [0] = data.i % 101;
+		itemNum [1] = data.i / 101 % 101;
+		itemNum [2] = data.i / 10201 % 101;
+		if (itemNum [0] + itemNum [1] + itemNum [2] != data.i / 1030301) {
+			itemNum [0] = 0;
+			itemNum [1] = 0;
+			itemNum [2] = 0;
+		}
+		itemNum [3] = data.j % 101;
+		itemNum [4] = data.j / 101 % 101;
+		itemNum [5] = data.j / 10201 % 101;
+		if (itemNum [3] + itemNum [4] + itemNum [5] != data.j / 1030301) {
+			itemNum [3] = 0;
+			itemNum [4] = 0;
+			itemNum [5] = 0;
+		}
+		gold = (data.x + data.g) / 2;
+		exp = (data.x - data.g) / 2;
+		equip.Sword.set (data.w);
+		equip.Shield.set (data.h);
+		level = 1;
+		while (exp >= nextExp(level + 1) && level < 15)
+		{
+			level++;
+			calcParam ();
+		}
+		Debug.Log ("level:" + level);
+		Debug.Log ("exp:" + exp);
+		Debug.Log ("gold:" + gold);
 	}
 }
