@@ -30,7 +30,6 @@ public class SaveLoad : SingletonMonoBehaviour<SaveLoad> {
 		BinaryWriter writer = new BinaryWriter(fileStream);
 		writer.Write(crypted);
 		writer.Close();
-		Debug.Log ("セーブしました");
 	}
 
 	public void load()
@@ -50,8 +49,6 @@ public class SaveLoad : SingletonMonoBehaviour<SaveLoad> {
 				json = decrypted;
 				GameMaster.Instance.fromJson (json);
 				reader.Close ();
-
-				Debug.Log ("ロードしました");
 			}
 		}
 	}

@@ -76,7 +76,80 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
             }
         }
         return flag;
-    }
+	}
+
+	public GridPosition getRandomPosition()
+	{
+		GridPosition p = new GridPosition(-1, -1, -1);
+		int max = -1;
+		//起点をランダム選択
+		for (int i = 0; i < WIDTH; i++)
+		{
+			for (int j = 0; j < HEIGHT; j++)
+			{
+				int r = Random.Range(0, 100);
+				if (getBlock(i, j) == 0 && r > max)
+				{
+					max = r;
+					p.set(i, j, 0);
+				}
+			}
+		}
+		return p;
+	}
+
+	public GridPosition getDeadEnd()
+	{
+		GridPosition p = new GridPosition(-1, -1, -1);
+		int max = -1;
+		//起点をランダム選択
+		for (int i = 0; i < WIDTH; i++)
+		{
+			for (int j = 0; j < HEIGHT; j++)
+			{
+				GridPosition q = new GridPosition(i, j);
+				int r = Random.Range(0, 100);
+				int count = 0;
+				for (int k = 0; k < 4; k++)
+				{
+					if (getBlock(q.move(k)) == 1)
+					{
+						count++;
+					}
+				}
+				if (count == 3 && getBlock(i, j) == 0 && r > max)
+				{
+					max = r;
+					p.set(i, j, 0);
+				}
+			}
+		}
+		return p;
+	}
+
+	GridPosition randomWarpPosition(GridPosition position)
+	{
+		GridPosition p = new GridPosition(-1, -1, -1);
+		int max = -1;
+		//起点をランダム選択
+		for (int i = 0; i < WIDTH; i++)
+		{
+			for (int j = 0; j < HEIGHT; j++)
+			{
+				int r = Random.Range(0, 100);
+				if (getBlock(i, j) == 8 && r > max)
+				{
+					GridPosition q = new GridPosition (i, j, 0);
+					if (q != position)
+					{
+						p.set (i, j, Random.Range (0, 4));
+						max = r;
+					}
+				}
+			}
+		}
+		return p;
+	}
 
 	public GridPosition PhantomPosition()
 	{
@@ -101,6 +174,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 			GameMaster.Instance.getTreasure ();
 			destroyTreasureBox (position);
 			break;
+		case 8:
+			StartCoroutine (warppoint (position));
+			break;
 		default:
 			break;
 		}
@@ -118,19 +194,6 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		FadeManager.Instance.LoadLevel ("Town", 0.5f);
 	}
 
-	void destroyTreasureBox(GridPosition position)
-	{
-		DungeonManager.Instance.setBlock(position, 0);
-		foreach (Transform n in DungeonManager.Instance.transform)
-		{
-			if (n.name == "Treasure" && n.position.x == position.x && n.position.z == position.z)
-			{
-				GameObject.Destroy (n.gameObject, 0.25f);
-				break;
-			}
-		}
-	}
-
 	private IEnumerator nextFloor()
 	{
 		FadeManager.Instance.StartFadeOut (0.5f);
@@ -145,8 +208,34 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 			}
 		}
 		DungeonGenerator.Instance.Generate ();
-		LogManager.Instance.PutLog (string.Format ("{0}Fに 到達した", depth));
+		LogManager.Instance.PutLog (string.Format ("{0}Fに たどり着いた", depth));
 		GameMaster.Instance.ObtainExp (2 + depth / 2);
 		FadeManager.Instance.StartFadeIn (0.5f);
+		yield return new WaitForSeconds (0.5f);
+	}
+
+	void destroyTreasureBox(GridPosition position)
+	{
+		setBlock(position, 0);
+		foreach (Transform n in transform)
+		{
+			if (n.name == "Treasure" && n.position.x == position.x && n.position.z == position.z)
+			{
+				GameObject.Destroy (n.gameObject, 0.25f);
+				break;
+			}
+		}
+	}
+
+	IEnumerator warppoint(GridPosition position)
+	{
+		FadeManager.Instance.StartFadeOut (0.5f);
+		yield return new WaitForSeconds (0.5f);
+
+		player.dest = randomWarpPosition (position);
+		player.pos = player.dest;
+
+		FadeManager.Instance.StartFadeIn (0.5f);
+		yield return new WaitForSeconds (0.5f);
 	}
 }

@@ -189,7 +189,6 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		data.w = equip.Sword.toInt();
 		data.h = equip.Shield.toInt();
 		string json = JsonUtility.ToJson (data);
-		Debug.Log ("json:" + json);
 		return json;
 	}
 
@@ -222,8 +221,5 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			level++;
 			calcParam ();
 		}
-		Debug.Log ("level:" + level);
-		Debug.Log ("exp:" + exp);
-		Debug.Log ("gold:" + gold);
 	}
 }

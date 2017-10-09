@@ -92,6 +92,10 @@ public class Actor : MonoBehaviour
 				{
 					DungeonManager.Instance.dungeonEvent (_dest);
 				}
+				if (tag == "Actor" && DungeonManager.Instance.getBlock (_dest) == 8)
+				{
+					actphase = Phase.KEY_WAIT;
+				}
 			}
             if (actphase != Phase.KEY_WAIT)
             {

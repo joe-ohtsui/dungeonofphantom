@@ -8,6 +8,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
     public GameObject treasurePrefab;
     public GameObject upstairsPrefab;
     public GameObject downstairsPrefab;
+	public GameObject warppointPrefab;
 
 	public GameObject slimePrefab;
 	public GameObject ratPrefab;
@@ -125,7 +126,10 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 
     void DungeonObject()
     {
-        GridPosition p = getDeadEnd();
+		int d = DungeonManager.Instance.depth;
+
+		//上り階段を出現させる
+		GridPosition p = DungeonManager.Instance.getDeadEnd();
 		DungeonManager.Instance.setBlock(p, 2);
         p.direction = GetNWallDirection(p);
 
@@ -133,13 +137,24 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         player.pos = p;
         player.dest = p;
 
-		DungeonManager.Instance.setBlock(getDeadEnd(), 4);
+		//下り階段を出現させる
+		DungeonManager.Instance.setBlock(DungeonManager.Instance.getDeadEnd(), 4);
 
+		//宝箱を出現させる
 		for (int i = 0; i < 7 - offset(); i++)
         {
-			DungeonManager.Instance.setBlock(getDeadEnd(), 6);
+			DungeonManager.Instance.setBlock(DungeonManager.Instance.getDeadEnd(), 6);
         }
-    }
+
+		//ワープポイントを出現させる
+		if (d == 9 || d == 10 || d == 11 || d == 12 || d == 17 || d == 19)
+		{
+			for (int i = 0; i < d / 2; i++)
+			{
+				DungeonManager.Instance.setBlock (DungeonManager.Instance.getRandomPosition (), 8);
+			}
+		}
+	}
 
 	void ClearObject()
 	{
@@ -162,23 +177,26 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
             {
                 instantiateToChildren(floorPrefab, new Vector3(x, -0.5f, z));
                 instantiateToChildren(floorPrefab, new Vector3(x, 0.5f, z));
-				switch (DungeonManager.Instance.getBlock(x,z))
-                {
-                    case 1:
-                        instantiateToChildren(wallPrefab, new Vector3(x, 0, z));
-                        break;
-                    case 2:
-                        instantiateToChildren(upstairsPrefab, new Vector3(x, 0, z));
-                        break;
-                    case 4:
-                        instantiateToChildren(downstairsPrefab, new Vector3(x, 0, z));
-                        break;
-                    case 6:
-                        instantiateToChildren(treasurePrefab, new Vector3(x, 0, z));
-                        break;
-                    default:
-                        break;
-                }
+				switch (DungeonManager.Instance.getBlock (x, z))
+				{
+				case 1:
+					instantiateToChildren (wallPrefab, new Vector3 (x, 0, z));
+					break;
+				case 2:
+					instantiateToChildren (upstairsPrefab, new Vector3 (x, 0, z));
+					break;
+				case 4:
+					instantiateToChildren (downstairsPrefab, new Vector3 (x, 0, z));
+					break;
+				case 6:
+					instantiateToChildren (treasurePrefab, new Vector3 (x, 0, z));
+					break;
+				case 8:
+					instantiateToChildren (warppointPrefab, new Vector3 (x, 0, z));
+					break;
+				default:
+					break;
+				}
             }
         }
     }
@@ -232,35 +250,6 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         }
         return -1;
     }
-
-    GridPosition getDeadEnd()
-    {
-        GridPosition p = new GridPosition(-1, -1, -1);
-        int max = -1;
-        //起点をランダム選択
-		for (int i = offset() + 1; i < DungeonManager.WIDTH - offset() - 1; i += 2)
-        {
-			for (int j = offset() + 1; j < DungeonManager.HEIGHT - offset() - 1; j += 2)
-            {
-                GridPosition q = new GridPosition(i, j);
-                int r = Random.Range(0, 100);
-                int count = 0;
-                for (int k = 0; k < 4; k++)
-                {
-					if (DungeonManager.Instance.getBlock(q.move(k)) == 1)
-                    {
-                        count++;
-                    }
-                }
-				if (count == 3 && DungeonManager.Instance.getBlock(i, j) == 0 && r > max)
-                {
-                    max = r;
-                    p.set(i, j, 0);
-                }
-            }
-        }
-        return p;
-	}
 
 	int offset()
 	{

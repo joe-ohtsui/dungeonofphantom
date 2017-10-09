@@ -32,9 +32,10 @@ public class DungeonMap : MonoBehaviour
 
             Color white = new Color(1.0f, 1.0f, 1.0f, 0.5f);
             Color green = new Color(0.25f, 1.0f, 0.5f, 0.5f);
-            Color blue = new Color(0.75f, 0.25f, 1.0f, 0.5f);
+            Color blue = new Color(0.25f, 0.75f, 1.0f, 0.5f);
             Color red = new Color(0.75f, 0.0f, 0.0f, 0.5f);
             Color yellow = new Color(1.0f, 1.0f, 0.0f, 0.5f);
+			Color purple = new Color (0.75f, 0.25f, 1.0f, 0.5f);
 
 			for (int i = 0; i < 19; i++)
 			{
@@ -87,6 +88,10 @@ public class DungeonMap : MonoBehaviour
 							else if (p == DungeonManager.Instance.PhantomPosition ())
 							{
 								cols [(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = red;
+							}
+							else if (DungeonManager.Instance.getBlock (p) == 8 && getVisited(p.x, p.z))
+							{
+								cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = purple;
 							}
 							else if (getVisited(p.x, p.z))
 							{
