@@ -177,6 +177,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		case 8:
 			StartCoroutine (warppoint (position));
 			break;
+		case 12:
+			trap (position);
+			break;
 		default:
 			break;
 		}
@@ -237,5 +240,12 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 
 		FadeManager.Instance.StartFadeIn (0.5f);
 		yield return new WaitForSeconds (0.5f);
+	}
+
+	void trap(GridPosition position)
+	{
+		int damage = (6 * depth - 7) * (Random.Range (0, 16) + Random.Range (0, 16) + 30) / 45;
+		GameMaster.Instance.trap (damage);
+		setBlock (position, 0);
 	}
 }

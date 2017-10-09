@@ -146,6 +146,15 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 			DungeonManager.Instance.setBlock(DungeonManager.Instance.getDeadEnd(), 6);
         }
 
+		//トラップを出現させる
+		if (d > 4 && d % 2 == 1)
+		{
+			for (int i = 0; i < d / 4; i++)
+			{
+				DungeonManager.Instance.setBlock (DungeonManager.Instance.getRandomPosition(), 12);
+			}
+		}
+
 		//ワープポイントを出現させる
 		if (d == 9 || d == 10 || d == 11 || d == 12 || d == 17 || d == 19)
 		{

@@ -27,6 +27,33 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		calcParam ();
 	}
 
+	public int calcDamage(Param a, Param b)
+	{
+		int result = -1;
+		if (Random.Range (0, 100) < a.hit - b.eva)
+		{
+			result = a.atk - b.def;
+			if (result < 1)
+			{
+				result = 1;
+			}
+			result = result * (Random.Range (0, 16) + Random.Range (0, 16) + 30) / 45;
+		}
+		return result;
+	}
+
+	public void dealDamage(Param target, int damage)
+	{
+		if (damage > 0)
+		{
+			target.hp -= damage;
+			if (target.hp < 0)
+			{
+				target.hp = 0;
+			}
+		}
+	}
+
 	public float GetExpPercentage()
 	{
 		Param param = GameObject.FindWithTag ("Player").GetComponent<Param> ();
@@ -175,6 +202,23 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			LogManager.Instance.PutLog (string.Format(g.ToString() + " Gを 見つけた"));
 		}
 		GameMaster.Instance.ObtainExp (1);
+	}
+
+	public void trap(int damage)
+	{
+		Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
+		if (itemNum [5] > 0)
+		{
+			LogManager.Instance.PutLog ("Trap Guardを 使って 罠を 解除した");
+			itemNum [5]--;
+		}
+		else
+		{
+			dealDamage (GameObject.FindWithTag ("Player").GetComponent<Param> (), damage);
+			GameObject.FindWithTag ("Player").GetComponent<Actor> ().damaged ();
+			LogManager.Instance.PutLog ("罠に かかった");
+			LogManager.Instance.PutLog (string.Format ("{0}ダメージを 受けた", damage));
+		}
 	}
 
 	public string toJson()

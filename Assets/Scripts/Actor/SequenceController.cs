@@ -113,24 +113,8 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 	
     public int damage(Param a, Param b)
 	{
-		int result = -1;
-		if (Random.Range (0, 100) < a.hit - b.eva)
-		{
-			result = a.atk - b.def;
-			if (result < 1)
-			{
-				result = 1;
-			}
-			result = result * (Random.Range (0, 16) + Random.Range (0, 16) + 30) / 45;
-		}
-		if (result > 0)
-		{
-			b.hp -= result;
-			if (b.hp < 0)
-			{
-				b.hp = 0;
-			}
-		}
+		int result = GameMaster.Instance.calcDamage (a, b);
+		GameMaster.Instance.dealDamage(b, result);
 		return result;
 	}
 	

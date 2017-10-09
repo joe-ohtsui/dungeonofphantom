@@ -93,6 +93,10 @@ public class DungeonMap : MonoBehaviour
 							{
 								cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = purple;
 							}
+							else if (DungeonManager.Instance.getBlock (p) == 12 && GameMaster.Instance.itemNum[5]>0)
+							{
+								cols [(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = red;
+							}
 							else if (getVisited(p.x, p.z))
 							{
 								cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = green;

@@ -45,7 +45,10 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKeyUp (KeyCode.Mouse0) || count > 130)
 		{
 			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			GetDirection ();
+			if (!attackFlag && !turnLeftFlag && !turnRightFlag && !moveForwardFlag && !moveBackwardFlag && !moveLeftFlag && !moveRightFlag)
+			{
+				GetDirection ();
+			}
 		}
 	}
 
@@ -273,10 +276,6 @@ public class PlayerController : MonoBehaviour
 				Attack ();
 				attackFlag = false;
 			}
-//			else
-//			{
-//				Flick ();
-//			}
         }
 		buttonClicked = false;
         player.transform.LookAt(pla.getLookAt());
