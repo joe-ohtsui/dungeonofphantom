@@ -8,8 +8,6 @@ public class DungeonMap : MonoBehaviour
     private Actor player;
     private int count;
 
-//    private bool[,] block;
-
     void Start()
     {
 		map = new Texture2D(128, 128, TextureFormat.ARGB32, false);
@@ -35,7 +33,7 @@ public class DungeonMap : MonoBehaviour
             Color white = new Color(1.0f, 1.0f, 1.0f, 0.5f);
             Color green = new Color(0.25f, 1.0f, 0.5f, 0.5f);
             Color blue = new Color(0.75f, 0.25f, 1.0f, 0.5f);
-            //Color red = new Color(0.75f, 0.0f, 0.0f, 0.5f);
+            Color red = new Color(0.75f, 0.0f, 0.0f, 0.5f);
             Color yellow = new Color(1.0f, 1.0f, 0.0f, 0.5f);
 
 			for (int i = 0; i < 19; i++)
@@ -73,22 +71,26 @@ public class DungeonMap : MonoBehaviour
 								cols[(6 + p.x * 6) + 128 * (6 + k + p.z * 6)] = white;
 							}
 						}
-						for (int x = 0; x < 5; x++)
+					}
+					for (int x = 0; x < 5; x++)
+					{
+						for (int y = 0; y < 5; y++)
 						{
-							for (int y = 0; y < 5; y++)
+							if (p == player.dest)
 							{
-								if (p == player.dest)
-								{
-									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = yellow;
-								}	
-								else if (DungeonManager.Instance.getBlock(p) == 2)
-								{
-									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = blue;
-								}
-								else
-								{
-									cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = green;
-								}
+								cols [(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = yellow;
+							}
+							else if (DungeonManager.Instance.getBlock (p) == 2)
+							{
+								cols [(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = blue;
+							}
+							else if (p == DungeonManager.Instance.PhantomPosition ())
+							{
+								cols [(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = red;
+							}
+							else if (getVisited(p.x, p.z))
+							{
+								cols[(7 + x + p.x * 6) + 128 * (7 + y + p.z * 6)] = green;
 							}
 						}
 					}

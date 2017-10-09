@@ -43,6 +43,12 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		CreateMonster ();
 	}
 
+	public GameObject spawnPhantom()
+	{
+		GameObject o = instantiateToChildren (phantomPrefab, new Vector3 (9, 0, 9));
+		return o;
+	}
+
     void InitFloor()
     {
         //フロア初期化
@@ -204,12 +210,13 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		}
 	}
 
-    void instantiateToChildren(GameObject prefab, Vector3 v)
+	GameObject instantiateToChildren(GameObject prefab, Vector3 v)
     {
         GameObject o;
 		o = Instantiate(prefab, v, Quaternion.identity) as GameObject;
 		o.transform.parent = DungeonManager.Instance.transform;
 		o.name = prefab.name;
+		return o;
     }
 
     int GetNWallDirection(GridPosition position, int distance = 1)

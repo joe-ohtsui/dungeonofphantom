@@ -9,7 +9,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 	public int depth;
 	public bool[,] visited;
     private int[,] block;
+	private int phantomstep;
     Actor player;
+	Actor phantom;
 
     public void init()
     {
@@ -22,6 +24,8 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		visited = new bool[WIDTH, HEIGHT];
 		block = new int[WIDTH, HEIGHT];
         player = GameObject.FindWithTag("Player").GetComponent<Actor>();
+		phantom = null;
+		phantomstep = 0;
     }
 
     public void setBlock(int x, int z, int value)
@@ -74,6 +78,15 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
         return flag;
     }
 
+	public GridPosition PhantomPosition()
+	{
+		if (phantom != null)
+		{
+			return phantom.dest;
+		}
+		return new GridPosition (-1, -1, 0);
+	}
+
 	public void dungeonEvent(GridPosition position)
 	{
 		switch (getBlock (position))
@@ -90,6 +103,13 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 			break;
 		default:
 			break;
+		}
+		phantomstep++;
+		int M = ((depth - 1) / 4) * 100 + 200;
+		if (phantomstep % M == 0 && phantom == null)
+		{
+			phantom = DungeonGenerator.Instance.spawnPhantom ().GetComponent<Actor> ();
+			LogManager.Instance.PutLog ("殺気を 感じる");
 		}
 	}
 
@@ -116,6 +136,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		FadeManager.Instance.StartFadeOut (0.5f);
 		yield return new WaitForSeconds (0.5f);
 		depth++;
+		phantomstep = 0;
 		for (int x = 0; x < WIDTH; x++)
 		{
 			for (int z = 0; z < WIDTH; z++)
