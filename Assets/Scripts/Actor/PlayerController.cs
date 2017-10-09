@@ -30,11 +30,6 @@ public class PlayerController : MonoBehaviour
 		{
 			touchStartPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		}
-		if (Input.GetKeyUp (KeyCode.Mouse0) || count > 130)
-		{
-			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			GetDirection ();
-		}
 		if (Input.GetKey (KeyCode.Mouse0))
 		{
 			count += (int)(600 * Time.deltaTime);
@@ -42,6 +37,15 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			count = 0;
+			turnLeftFlag = false;
+			turnRightFlag = false;
+			moveForwardFlag = false;
+			moveBackwardFlag = false;
+		}
+		if (Input.GetKeyUp (KeyCode.Mouse0) || count > 130)
+		{
+			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+			GetDirection ();
 		}
 	}
 
