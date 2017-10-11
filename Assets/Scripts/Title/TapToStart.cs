@@ -14,6 +14,7 @@ public class TapToStart : MonoBehaviour
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.Mouse0))
 		{
+			GameMaster.Instance.load ();
 			FadeManager.Instance.LoadLevel("Town",0.5f);
 		}
 	}

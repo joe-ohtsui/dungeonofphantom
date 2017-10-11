@@ -3,7 +3,10 @@ using System.Collections;
 
 public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 {
-    public GameObject wallPrefab;
+    public GameObject wall1Prefab;
+	public GameObject wall2Prefab;
+	public GameObject wall3Prefab;
+	public GameObject wall4Prefab;
     public GameObject floorPrefab;
     public GameObject treasurePrefab;
     public GameObject upstairsPrefab;
@@ -106,10 +109,15 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
             {
                 while (p.direction != -1)
                 {
+					int r = Random.Range (0, 5);
                     for (int i = 0; i < 2; i++)
                     {
                         p = p.move(p.direction);
-						DungeonManager.Instance.setBlock(p.x, p.z, 1);
+						if (DungeonManager.Instance.depth > 12 && r == 0) {
+							DungeonManager.Instance.setBlock (p.x, p.z, 3);
+						} else {
+							DungeonManager.Instance.setBlock (p.x, p.z, 1);
+						}
                     }
                     if (Random.Range(0, m) < wallcount)
                     {
@@ -137,14 +145,26 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         player.pos = p;
         player.dest = p;
 
-		//下り階段を出現させる
-		DungeonManager.Instance.setBlock(DungeonManager.Instance.getDeadEnd(), 4);
+		if (d < 20)
+		{
+			//下り階段を出現させる
+			DungeonManager.Instance.setBlock (DungeonManager.Instance.getDeadEnd (), 4);
+		}
 
 		//宝箱を出現させる
 		for (int i = 0; i < 7 - offset(); i++)
         {
 			DungeonManager.Instance.setBlock(DungeonManager.Instance.getDeadEnd(), 6);
         }
+
+		//ワープポイントを出現させる
+		if ((8 < d && d < 13) || d > 16)
+		{
+			for (int i = 0; i < d / 2; i++)
+			{
+				DungeonManager.Instance.setBlock (DungeonManager.Instance.getRandomPosition (), 8);
+			}
+		}
 
 		//トラップを出現させる
 		if (d > 4 && d % 2 == 1)
@@ -155,12 +175,12 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 			}
 		}
 
-		//ワープポイントを出現させる
-		if (d == 9 || d == 10 || d == 11 || d == 12 || d == 17 || d == 19)
+		//落とし穴を出現させる
+		if (d == 6 || d == 10 || d == 14 || d == 16 || d == 19)
 		{
-			for (int i = 0; i < d / 2; i++)
+			for (int i = 0; i < d / 4; i++)
 			{
-				DungeonManager.Instance.setBlock (DungeonManager.Instance.getRandomPosition (), 8);
+				DungeonManager.Instance.setBlock (DungeonManager.Instance.getRandomPosition(), 14);
 			}
 		}
 	}
@@ -189,7 +209,24 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 				switch (DungeonManager.Instance.getBlock (x, z))
 				{
 				case 1:
-					instantiateToChildren (wallPrefab, new Vector3 (x, 0, z));
+					int r = Random.Range (0, 4);
+					switch (r)
+					{
+					case 0:
+						instantiateToChildren (wall1Prefab, new Vector3 (x, 0, z));
+						break;
+					case 1:
+						instantiateToChildren (wall2Prefab, new Vector3 (x, 0, z));
+						break;
+					case 2:
+						instantiateToChildren (wall3Prefab, new Vector3 (x, 0, z));
+						break;
+					case 3:
+						instantiateToChildren (wall4Prefab, new Vector3 (x, 0, z));
+						break;
+					default:
+						break;
+					}
 					break;
 				case 2:
 					instantiateToChildren (upstairsPrefab, new Vector3 (x, 0, z));
@@ -217,7 +254,9 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 		{
 			int r = Random.Range (0, 256);
 			int d = 43 * DungeonManager.Instance.depth;
-			if (r < d - 689) {
+			if (r < d - 817) {
+				instantiateToChildren (dragonPrefab, new Vector3 (9, 0, 9));
+			} else if (r < d - 689) {
 				instantiateToChildren (demonPrefab, new Vector3 (9, 0, 9));
 			} else if (r < d - 603) {
 				instantiateToChildren (taurusPrefab, new Vector3 (9, 0, 9));

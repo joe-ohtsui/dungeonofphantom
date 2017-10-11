@@ -180,6 +180,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		case 12:
 			trap (position);
 			break;
+		case 14:
+			pit (position);
+			break;
 		default:
 			break;
 		}
@@ -244,8 +247,44 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 
 	void trap(GridPosition position)
 	{
+		setBlock (position, 0);
 		int damage = (6 * depth - 7) * (Random.Range (0, 16) + Random.Range (0, 16) + 30) / 45;
 		GameMaster.Instance.trap (damage);
+	}
+
+	void pit(GridPosition position)
+	{
 		setBlock (position, 0);
+		if (GameMaster.Instance.itemNum [5] > 0)
+		{
+			LogManager.Instance.PutLog ("Trap Guardを 使って 罠を 解除した");
+			GameMaster.Instance.itemNum [5]--;
+		}
+		else
+		{
+			LogManager.Instance.PutLog ("落とし穴だ！");
+			StartCoroutine (fallIntoNextFloor (position));
+		}
+	}
+
+	IEnumerator fallIntoNextFloor(GridPosition position)
+	{
+		FadeManager.Instance.StartFadeOut (0.20f);
+		yield return new WaitForSeconds (0.20f);
+		depth++;
+		phantomstep = 0;
+		for (int x = 0; x < WIDTH; x++)
+		{
+			for (int z = 0; z < WIDTH; z++)
+			{
+				visited [x, z] = false;
+			}
+		}
+		DungeonGenerator.Instance.Generate ();
+		player.pos = getRandomPosition();
+		player.dest = player.pos;
+
+		FadeManager.Instance.StartFadeIn (0.5f);
+		yield return new WaitForSeconds (0.5f);
 	}
 }

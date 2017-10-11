@@ -19,12 +19,8 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 
 		DontDestroyOnLoad (this.gameObject);
-
 		itemNum = new int[6]{ 0, 0, 0, 0, 0, 0 };
 		equip = new EqBuff ();
-		SaveLoad.Instance.load ();
-
-		calcParam ();
 	}
 
 	public int calcDamage(Param a, Param b)
@@ -206,7 +202,6 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 	public void trap(int damage)
 	{
-		Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
 		if (itemNum [5] > 0)
 		{
 			LogManager.Instance.PutLog ("Trap Guardを 使って 罠を 解除した");
@@ -214,11 +209,20 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 		else
 		{
+			Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
 			dealDamage (GameObject.FindWithTag ("Player").GetComponent<Param> (), damage);
 			GameObject.FindWithTag ("Player").GetComponent<Actor> ().damaged ();
 			LogManager.Instance.PutLog ("罠に かかった");
 			LogManager.Instance.PutLog (string.Format ("{0}ダメージを 受けた", damage));
 		}
+	}
+
+	public void load()
+	{
+		itemNum = new int[6]{ 0, 0, 0, 0, 0, 0 };
+		equip = new EqBuff ();
+		SaveLoad.Instance.load ();
+		GameMaster.Instance.calcParam ();
 	}
 
 	public string toJson()
