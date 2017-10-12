@@ -10,7 +10,8 @@ public class Actor : MonoBehaviour
 		MOVE_START,
         MOVE_ROTATE,
         ATTACK_START,
-        TURN_END
+        TURN_END,
+		DEAD
     }
 
     public GridPosition pos;

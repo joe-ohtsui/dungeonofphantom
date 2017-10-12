@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
     {
 		Flick ();
 
-        if (pla.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
+		if (pla.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
         {
 			if (Input.GetKey (KeyCode.LeftArrow) || turnLeftFlag)
 			{

@@ -28,6 +28,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		GameMaster.Instance.calcParam ();
 		GameMaster.Instance.maxHp ();
 		CreateTrade ();
+		SaveLoad.Instance.save ();
 	}
 
 	void CreateTrade()
@@ -146,6 +147,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 			GameMaster.Instance.equip.Sword.set(SwordList [id]);
 			GameMaster.Instance.calcParam ();
 			SwordIsNothing [id] = true;
+			SaveLoad.Instance.save ();
 		}
 	}
 
@@ -179,6 +181,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 			GameMaster.Instance.equip.Shield.set(ShieldList [id]);
 			GameMaster.Instance.calcParam ();
 			ShieldIsNothing [id] = true;
+			SaveLoad.Instance.save ();
 		}
 	}
 
@@ -186,12 +189,14 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 	{
 		GameMaster.Instance.itemNum [id]++;
 		GameMaster.Instance.gold -= itemPrice [id];
+		SaveLoad.Instance.save ();
 	}
 
 	public void sellItemButtonClicked(int id)
 	{
 		GameMaster.Instance.itemNum [id]--;
 		GameMaster.Instance.gold += itemPrice [id] / 2;
+		SaveLoad.Instance.save ();
 	}
 	
 	public void GoToDungeonButtonClicked()
