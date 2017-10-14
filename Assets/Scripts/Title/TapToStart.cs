@@ -15,7 +15,6 @@ public class TapToStart : MonoBehaviour
 
 	public void OnClicked()
 	{
-		Debug.Log ("Clicked");
 		GameMaster.Instance.load ();
 		FadeManager.Instance.LoadLevel("Town",0.5f);
 	}

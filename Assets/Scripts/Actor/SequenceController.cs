@@ -102,6 +102,41 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 				if (bp.hp == 0)
 				{
 					LogManager.Instance.PutLog (g.transform.name + "を 倒した");
+					switch (g.transform.name)
+					{
+					case "Slime":
+						AchievementManager.Instance.addCount (0, 1);
+						break;
+					case "Rat":
+						AchievementManager.Instance.addCount (1, 1);
+						break;
+					case "Hornet":
+						AchievementManager.Instance.addCount (2, 1);
+						break;
+					case "Zombie":
+						AchievementManager.Instance.addCount (3, 1);
+						break;
+					case "Skeleton":
+						AchievementManager.Instance.addCount (4, 1);
+						break;
+					case "Dragonewt":
+						AchievementManager.Instance.addCount (5, 1);
+						break;
+					case "Taurus":
+						AchievementManager.Instance.addCount (6, 1);
+						break;
+					case "Demon":
+						AchievementManager.Instance.addCount (7, 1);
+						break;
+					case "Phantom":
+						AchievementManager.Instance.addCount (8, 1);
+						break;
+					case "Dragon":
+						AchievementManager.Instance.addCount (9, 1);
+						break;
+					default:
+						break;
+					}
 					GameMaster.Instance.ObtainExp (bp.exp);
 					Destroy (g);
 				}

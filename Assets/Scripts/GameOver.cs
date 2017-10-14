@@ -25,6 +25,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnClicked()
 	{
+		SaveLoad.Instance.gameover ();
 		FadeManager.Instance.LoadLevel("Title",1.5f);
 	}
 }

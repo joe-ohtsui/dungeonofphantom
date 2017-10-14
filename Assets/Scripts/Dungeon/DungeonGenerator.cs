@@ -35,10 +35,13 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
         Generate();
 		GameMaster.Instance.calcParam ();
 		GameMaster.Instance.maxHp ();
+
+		LogManager.Instance.PutLog ("ダンジョンに 侵入した");
     }
 
     public void Generate()
 	{
+		AchievementManager.Instance.setCount (12, DungeonManager.Instance.depth);
 		InitFloor ();
 		WallExtend ();
 		DungeonObject ();
@@ -238,7 +241,7 @@ public class DungeonGenerator : SingletonMonoBehaviour<DungeonGenerator>
 					instantiateToChildren (treasurePrefab, new Vector3 (x, 0, z));
 					break;
 				case 8:
-					instantiateToChildren (warppointPrefab, new Vector3 (x, 0, z));
+					instantiateToChildren (warppointPrefab, new Vector3 (x, -0.49f, z));
 					break;
 				default:
 					break;

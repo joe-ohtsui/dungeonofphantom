@@ -69,7 +69,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		{
 			exp = 9999;
 		}
-		if (exp >= nextExp(level + 1) && level < 15)
+		while (exp >= nextExp(level + 1) && level < 15)
 		{
 			level++;
 			calcParam ();
@@ -77,17 +77,17 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 	}
 
-	private int nextExp(int l)
+	private int nextExp(int _level)
 	{
-		if (l == 1)
+		if (_level == 1)
 		{
 			return 0;
 		}
-		if (l > 15)
+		if (_level > 15)
 		{
 			return nextExp (15);
 		}
-		return 5 * l * l * l - 40 * l * l + 153 * l - 171;
+		return 5 * _level * _level * _level - 40 * _level * _level + 153 * _level - 171;
 	}
 
 	public void aging()
@@ -198,6 +198,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			LogManager.Instance.PutLog (string.Format(g.ToString() + " Gを 見つけた"));
 		}
 		GameMaster.Instance.ObtainExp (1);
+		AchievementManager.Instance.addCount (13, 1);
 	}
 
 	public void trap(int damage)
@@ -209,11 +210,11 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		}
 		else
 		{
-			Param param = GameObject.FindWithTag ("Player").GetComponent<Param>();
 			dealDamage (GameObject.FindWithTag ("Player").GetComponent<Param> (), damage);
 			GameObject.FindWithTag ("Player").GetComponent<Actor> ().damaged ();
 			LogManager.Instance.PutLog ("罠に かかった");
 			LogManager.Instance.PutLog (string.Format ("{0}ダメージを 受けた", damage));
+			AchievementManager.Instance.addCount (14, 1);
 		}
 	}
 
@@ -236,6 +237,12 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		data.g = gold - exp;
 		data.w = equip.Sword.toInt();
 		data.h = equip.Shield.toInt();
+		for (int k = 0; k < 16; k++)
+		{
+			data.a [k] = AchievementManager.Instance.count [k];
+			data.r [k] = AchievementManager.Instance.rank [k];
+			data.u [k] = AchievementManager.Instance.unread [k];
+		}
 		string json = JsonUtility.ToJson (data);
 		return json;
 	}
@@ -268,6 +275,12 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 		{
 			level++;
 			calcParam ();
+		}
+		for (int k = 0; k < 16; k++)
+		{
+			AchievementManager.Instance.rank [k] = data.r [k];
+			AchievementManager.Instance.unread [k] = data.u [k];
+			AchievementManager.Instance.setCount (k, data.a [k]);
 		}
 	}
 }

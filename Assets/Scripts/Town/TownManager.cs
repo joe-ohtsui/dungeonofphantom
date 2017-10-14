@@ -123,7 +123,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		int gold = e.gold / 2 - SwordList [id].gold;
 		int da = SwordList [id].atk - e.atk;
 		int dh = SwordList [id].hit - e.hit;
-		DialogManager.Instance.message (
+		DialogManager.Instance.Open (
 			string.Format ("現在の 装備を 売却して\n" +
 				"{0}を 購入します。({1} G)\n" +
 				"Atk:{2,3}  -> {3,3}  ({4,4} )\n" +
@@ -143,7 +143,9 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		}
 		if (DialogManager.Instance.getAnswer () == DialogManager.Answer.Yes)
 		{
-			GameMaster.Instance.gold += GameMaster.Instance.equip.Sword.gold / 2 - SwordList [id].gold;
+			int g = SwordList [id].gold - GameMaster.Instance.equip.Sword.gold / 2;
+			GameMaster.Instance.gold -= g;
+			AchievementManager.Instance.addCount (10, g);
 			GameMaster.Instance.equip.Sword.set(SwordList [id]);
 			GameMaster.Instance.calcParam ();
 			SwordIsNothing [id] = true;
@@ -157,7 +159,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		int gold = e.gold / 2 - ShieldList [id].gold;
 		int da = ShieldList [id].def - e.def;
 		int dh = ShieldList [id].eva - e.eva;
-		DialogManager.Instance.message (
+		DialogManager.Instance.Open (
 			string.Format ("現在の 装備を 売却して\n" +
 				"{0}を 購入します。({1} G)\n" +
 				"Def:{2,3}  -> {3,3}  ({4,4} )\n" +
@@ -177,7 +179,9 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		}
 		if (DialogManager.Instance.getAnswer () == DialogManager.Answer.Yes)
 		{
-			GameMaster.Instance.gold += GameMaster.Instance.equip.Shield.gold / 2 - ShieldList [id].gold;
+			int g = ShieldList [id].gold - GameMaster.Instance.equip.Shield.gold / 2;
+			GameMaster.Instance.gold -= g;
+			AchievementManager.Instance.addCount (10, g);
 			GameMaster.Instance.equip.Shield.set(ShieldList [id]);
 			GameMaster.Instance.calcParam ();
 			ShieldIsNothing [id] = true;
@@ -189,6 +193,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 	{
 		GameMaster.Instance.itemNum [id]++;
 		GameMaster.Instance.gold -= itemPrice [id];
+		AchievementManager.Instance.addCount (10, itemPrice [id]);
 		SaveLoad.Instance.save ();
 	}
 

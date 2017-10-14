@@ -52,4 +52,42 @@ public class SaveLoad : SingletonMonoBehaviour<SaveLoad> {
 			}
 		}
 	}
+
+	public void gameover()
+	{
+		string folderpath = Application.temporaryCachePath + "/Database/";
+		string filepath = folderpath + "save.json";
+
+		if (File.Exists (filepath))
+		{
+			FileStream rfileStream = new FileStream (filepath, FileMode.Open, FileAccess.Read);
+			BinaryReader reader = new BinaryReader (rfileStream);
+			if (reader != null)
+			{
+				string str = reader.ReadString ();
+				string decrypted = Crypt.Decrypt (str);
+				reader.Close ();
+
+				SaveData data = JsonUtility.FromJson<SaveData> (decrypted);
+				data.a [15]++;
+				if (data.a[15] > 9999)
+				{
+					data.a [15] = 9999;
+				}
+				string json = JsonUtility.ToJson (data);
+
+				string crypted = Crypt.Encrypt (json);
+				if (!Directory.Exists (folderpath))
+				{
+					Directory.CreateDirectory(folderpath);
+				}
+
+				FileStream wfileStream = new FileStream(filepath, FileMode.Create, FileAccess.Write);
+				BinaryWriter writer = new BinaryWriter(wfileStream);
+				writer.Write(crypted);
+				writer.Close();
+			}
+		}
+	}
+
 }

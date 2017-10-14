@@ -5,7 +5,8 @@ public class PlayerController : MonoBehaviour
 {
 	GameObject player;
 	Actor pla;
-	bool buttonClicked = false;
+//	bool buttonClicked = false;
+	bool flickFlag = false;
 	bool moveForwardFlag = false;
 	bool moveBackwardFlag = false;
 	bool moveLeftFlag = false;
@@ -15,82 +16,66 @@ public class PlayerController : MonoBehaviour
 	bool attackFlag = false;
 	int count = 0;
 
+	private Vector3 touchStartPos;
+	private Vector3 touchEndPos;
+
     void Start ()
     {
 		player = GameObject.FindWithTag ("Player");
 		pla = player.GetComponent<Actor>();
     }
 
-	private Vector3 touchStartPos;
-	private Vector3 touchEndPos;
-
 	void Flick()
 	{
-		if (Input.GetKeyDown (KeyCode.Mouse0))
-		{
-			touchStartPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-		}
-		if (Input.GetKey (KeyCode.Mouse0))
-		{
-			count += (int)(600 * Time.deltaTime);
-		}
-		else
-		{
-			count = 0;
-			turnLeftFlag = false;
-			turnRightFlag = false;
-			moveForwardFlag = false;
-			moveBackwardFlag = false;
-		}
-		if (Input.GetKeyUp (KeyCode.Mouse0) || count > 130)
-		{
-			touchEndPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			if (!attackFlag && !turnLeftFlag && !turnRightFlag && !moveForwardFlag && !moveBackwardFlag && !moveLeftFlag && !moveRightFlag)
-			{
-				GetDirection ();
-			}
-		}
-	}
-
-	void GetDirection()
-	{
-		float dx = touchEndPos.x - touchStartPos.x;
-		float dy = touchEndPos.y - touchStartPos.y;
+		Vector3 mousePos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		float dx = mousePos.x - touchStartPos.x;
+		float dy = mousePos.y - touchStartPos.y;
 
 		if (Mathf.Abs (dy) < Mathf.Abs (dx))
 		{
-			if (40 < dx)
+			if (20 < dx)
 			{
 				//右向きにフリックされた
-				turnLeftFlag = true;
+				TurnLeft();
 			}
-			else if (-40 > dx)
+			else if (-20 > dx)
 			{
 				//左向きにフリックされた
-				turnRightFlag = true;
+				TurnRight();
 			}
 			else
 			{
-				moveForwardFlag = true;
+				MoveForward ();
 			}
 		}
 		else
 		{
-			if (40 < dy)
+			if (20 < dy)
 			{
 				//上向きにフリックされた
-				moveBackwardFlag = true;
+				MoveBackward ();
 			}
 			else
 			{
-				moveForwardFlag = true;
+				MoveForward();
 			}
 		}
 	}
 
-	public void AnyOtherButtonClicked()
+	public void FlickStart()
 	{
-		buttonClicked = true;
+		touchStartPos = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		flickFlag = true;
+	}
+
+	public void FlickEnd()
+	{
+		if (pla.actphase == Actor.Phase.KEY_WAIT)
+		{
+			Flick ();
+		}
+		flickFlag = false;
+		count = 0;
 	}
 
 	public void TurnLeftButtonDown()
@@ -101,7 +86,6 @@ public class PlayerController : MonoBehaviour
 	public void TurnLeftButtonUp()
 	{
 		turnLeftFlag = false;
-		buttonClicked = true;
 	}
 
 	public void TurnRightButtonDown()
@@ -112,7 +96,6 @@ public class PlayerController : MonoBehaviour
 	public void TurnRightButtonUp()
 	{
 		turnRightFlag = false;
-		buttonClicked = true;
 	}
 
 	public void MoveForwardButtonDown()
@@ -123,7 +106,6 @@ public class PlayerController : MonoBehaviour
 	public void MoveForwardButtonUp()
 	{
 		moveForwardFlag = false;
-		buttonClicked = true;
 	}
 
 	public void MoveBackwardButtonDown()
@@ -134,7 +116,6 @@ public class PlayerController : MonoBehaviour
 	public void MoveBackwardButtonUp()
 	{
 		moveBackwardFlag = false;
-		buttonClicked = true;
 	}
 
 	public void MoveLeftButtonDown()
@@ -145,7 +126,6 @@ public class PlayerController : MonoBehaviour
 	public void MoveLeftButtonUp()
 	{
 		moveLeftFlag = false;
-		buttonClicked = true;
 	}
 
 	public void MoveRightButtonDown()
@@ -156,7 +136,6 @@ public class PlayerController : MonoBehaviour
 	public void MoveRightButtonUp()
 	{
 		moveRightFlag = false;
-		buttonClicked = true;
 	}
 
 	public void AttackButtonClicked()
@@ -203,7 +182,6 @@ public class PlayerController : MonoBehaviour
 			GameMaster.Instance.calcParam ();
 			pla.actphase = Actor.Phase.MOVE_START;
 		}
-		buttonClicked = true;
 	}
 
 	void TurnLeft()
@@ -243,9 +221,12 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
-		Flick ();
+		if (flickFlag)
+		{
+			count += (int)(600 * Time.deltaTime);
+		}
 
-		if (pla.actphase == Actor.Phase.KEY_WAIT && !buttonClicked)
+		if (pla.actphase == Actor.Phase.KEY_WAIT)
         {
 			if (Input.GetKey (KeyCode.LeftArrow) || turnLeftFlag)
 			{
@@ -271,13 +252,16 @@ public class PlayerController : MonoBehaviour
 			{
 				MoveRight ();
 			}
+			else if (count > 130)
+			{
+				Flick ();
+			}
 			else if (Input.GetKey (KeyCode.X) || attackFlag)
 			{
 				Attack ();
 				attackFlag = false;
 			}
         }
-		buttonClicked = false;
         player.transform.LookAt(pla.getLookAt());
     }
     

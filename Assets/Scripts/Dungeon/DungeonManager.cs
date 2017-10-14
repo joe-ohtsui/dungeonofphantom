@@ -187,6 +187,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 			break;
 		}
 		phantomstep++;
+		AchievementManager.Instance.addCount (11, 1);
 		int M = ((depth - 1) / 4) * 100 + 200;
 		if (phantomstep % M == 0 && phantom == null)
 		{

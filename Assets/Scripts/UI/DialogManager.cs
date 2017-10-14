@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogManager : SingletonMonoBehaviour<DialogManager> {
-
 	public GameObject dialogBox;
 	GameObject dbInstance;
 	Answer answer;
@@ -27,7 +26,7 @@ public class DialogManager : SingletonMonoBehaviour<DialogManager> {
 		DontDestroyOnLoad (this.gameObject);
 	}
 
-	public void message(string text)
+	public void Open(string text)
 	{
 		GameObject o = Instantiate (dialogBox, this.transform) as GameObject;
 		o.GetComponentInChildren<Text> ().text = text;

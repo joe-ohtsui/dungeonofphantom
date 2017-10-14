@@ -46,6 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Achievement\AchievementArea.cs" />
+     <Compile Include="Assets\Scripts\Achievement\AchievementManager.cs" />
+     <Compile Include="Assets\Scripts\Achievement\AchievementMessage.cs" />
+     <Compile Include="Assets\Scripts\Achievement\AchievementRank.cs" />
+     <Compile Include="Assets\Scripts\Achievement\AchievementUnread.cs" />
      <Compile Include="Assets\Scripts\Actor\Actor.cs" />
      <Compile Include="Assets\Scripts\Actor\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Actor\EqBuff.cs" />
@@ -53,7 +58,6 @@
      <Compile Include="Assets\Scripts\Actor\Param.cs" />
      <Compile Include="Assets\Scripts\Actor\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Actor\SequenceController.cs" />
-     <Compile Include="Assets\Scripts\Crypt.cs" />
      <Compile Include="Assets\Scripts\Dungeon\BillBoard.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonManager.cs" />
@@ -63,8 +67,9 @@
      <Compile Include="Assets\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GameOver.cs" />
-     <Compile Include="Assets\Scripts\SaveData.cs" />
-     <Compile Include="Assets\Scripts\SaveLoad.cs" />
+     <Compile Include="Assets\Scripts\Save\Crypt.cs" />
+     <Compile Include="Assets\Scripts\Save\SaveData.cs" />
+     <Compile Include="Assets\Scripts\Save\SaveLoad.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
      <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />
      <Compile Include="Assets\Scripts\Title\TapToStart.cs" />

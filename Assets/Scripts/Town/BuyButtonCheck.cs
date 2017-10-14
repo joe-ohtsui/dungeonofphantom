@@ -18,6 +18,6 @@ public class BuyButtonCheck : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		button.enabled = TownManager.Instance.isAvailable (type, ID);
+		button.interactable = TownManager.Instance.isAvailable (type, ID);
 	}
 }
