@@ -18,6 +18,11 @@ public class AchievementManager : SingletonMonoBehaviour<AchievementManager>
 		}
 
 		DontDestroyOnLoad (this.gameObject);
+		init ();
+	}
+
+	public void init()
+	{
 
 		count = new int[16]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		rank = new int[16]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

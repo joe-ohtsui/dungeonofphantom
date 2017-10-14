@@ -249,38 +249,43 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 
 	public void fromJson(string json)
 	{
-		SaveData data = JsonUtility.FromJson<SaveData> (json);
-		itemNum [0] = data.i % 101;
-		itemNum [1] = data.i / 101 % 101;
-		itemNum [2] = data.i / 10201 % 101;
-		if (itemNum [0] + itemNum [1] + itemNum [2] != data.i / 1030301) {
-			itemNum [0] = 0;
-			itemNum [1] = 0;
-			itemNum [2] = 0;
-		}
-		itemNum [3] = data.j % 101;
-		itemNum [4] = data.j / 101 % 101;
-		itemNum [5] = data.j / 10201 % 101;
-		if (itemNum [3] + itemNum [4] + itemNum [5] != data.j / 1030301) {
-			itemNum [3] = 0;
-			itemNum [4] = 0;
-			itemNum [5] = 0;
-		}
-		gold = (data.x + data.g) / 2;
-		exp = (data.x - data.g) / 2;
-		equip.Sword.set (data.w);
-		equip.Shield.set (data.h);
-		level = 1;
-		while (exp >= nextExp(level + 1) && level < 15)
+		if (json != "")
 		{
-			level++;
-			calcParam ();
-		}
-		for (int k = 0; k < 16; k++)
-		{
-			AchievementManager.Instance.rank [k] = data.r [k];
-			AchievementManager.Instance.unread [k] = data.u [k];
-			AchievementManager.Instance.setCount (k, data.a [k]);
+			SaveData data = JsonUtility.FromJson<SaveData> (json);
+			itemNum [0] = data.i % 101;
+			itemNum [1] = data.i / 101 % 101;
+			itemNum [2] = data.i / 10201 % 101;
+			if (itemNum [0] + itemNum [1] + itemNum [2] != data.i / 1030301)
+			{
+				itemNum [0] = 0;
+				itemNum [1] = 0;
+				itemNum [2] = 0;
+			}
+			itemNum [3] = data.j % 101;
+			itemNum [4] = data.j / 101 % 101;
+			itemNum [5] = data.j / 10201 % 101;
+			if (itemNum [3] + itemNum [4] + itemNum [5] != data.j / 1030301)
+			{
+				itemNum [3] = 0;
+				itemNum [4] = 0;
+				itemNum [5] = 0;
+			}
+			gold = (data.x + data.g) / 2;
+			exp = (data.x - data.g) / 2;
+			equip.Sword.set (data.w);
+			equip.Shield.set (data.h);
+			level = 1;
+			while (exp >= nextExp (level + 1) && level < 15)
+			{
+				level++;
+				calcParam ();
+			}
+			for (int k = 0; k < 16; k++)
+			{
+				AchievementManager.Instance.rank [k] = data.r [k];
+				AchievementManager.Instance.unread [k] = data.u [k];
+				AchievementManager.Instance.setCount (k, data.a [k]);
+			}
 		}
 	}
 }

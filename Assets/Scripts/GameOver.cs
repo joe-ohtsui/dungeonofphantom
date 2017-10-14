@@ -16,16 +16,16 @@ public class GameOver : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (param.hp == 0)
+		if (param.hp == 0 && player.actphase != Actor.Phase.DEAD)
 		{
 			GetComponent<Canvas> ().enabled = true;
 			player.actphase = Actor.Phase.DEAD;
+			SaveLoad.Instance.gameover ();
 		}
 	}
 
 	public void OnClicked()
 	{
-		SaveLoad.Instance.gameover ();
 		FadeManager.Instance.LoadLevel("Title",1.5f);
 	}
 }

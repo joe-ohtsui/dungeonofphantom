@@ -165,7 +165,9 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		switch (getBlock (position))
 		{
 		case 2:
-			returnToTown ();
+			//			returnToTown ();
+			DialogManager.Instance.Open ("街に 戻りますか？");
+			StartCoroutine(returnToTown());
 			break;
 		case 4:
 			StartCoroutine (nextFloor ());
@@ -196,9 +198,16 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		}
 	}
 
-	void returnToTown()
+	IEnumerator returnToTown()
 	{
-		FadeManager.Instance.LoadLevel ("Town", 0.5f);
+		while(DialogManager.Instance.getAnswer() == DialogManager.Answer.NA)
+		{
+			yield return 0;
+		}
+		if (DialogManager.Instance.getAnswer () == DialogManager.Answer.Yes)
+		{
+			FadeManager.Instance.LoadLevel ("Town", 0.5f);
+		}
 	}
 
 	private IEnumerator nextFloor()

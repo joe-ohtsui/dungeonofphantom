@@ -97,6 +97,12 @@ public class Equip
 			hit = 140;
 			gold = 55;
 			break;
+		case 5:
+			name = "DeathScythe";
+			atk = 155;
+			hit = 145;
+			gold = 110;
+			break;
 		case 8:
 			name = "Buckler";
 			def = 25;
