@@ -222,6 +222,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 	{
 		itemNum = new int[6]{ 0, 0, 0, 0, 0, 0 };
 		equip = new EqBuff ();
+		AchievementManager.Instance.init ();
 		SaveLoad.Instance.load ();
 		GameMaster.Instance.calcParam ();
 	}

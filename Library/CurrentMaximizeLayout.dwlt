@@ -22,10 +22,10 @@ MonoBehaviour:
     y: 30
     width: 1280
     height: 637
-  m_MinSize: {x: 909, y: 442}
-  m_MaxSize: {x: 22004, y: 10000}
+  m_MinSize: {x: 917, y: 442}
+  m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-  controlID: 142096
+  controlID: 143725
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 142097
+  controlID: 143726
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,8 +144,8 @@ MonoBehaviour:
     y: 0
     width: 565
     height: 251
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -330,9 +330,9 @@ MonoBehaviour:
     height: 616
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 82260000
+    m_SelectedIDs: ba250000
     m_LastClickedID: 0
-    m_ExpandedIDs: e6d8d7ffbcdfd7ffbc23d8ff562ad8ff102bd8fff28adafff48fdaffbaaddaff68b3daffceb7daff56e1daffeef3daff9479dcff2c83dcffb886ddff468cddff781edeffea22deff042ddeff1c69dfff38e6e6ffc611e7ff6e49e7ff5856e7ff1ce3e9fff212eaffe23deaff424aeaff7e68ebffb06febff0e70ebfff072ebff5875edff007deeffc418f2ff6c19f2ffb81bf2ff8843f2ffa645f2ff8c49f2ff6a4bf2ff7852f2ff5258f2ff7601f3ff7801f3ffaa08f3ffac08f3fffe30f5ff2e3cf5ff1a40f5ff8041f5ff9266f5ff9868f5ff2a6ff5ffca76f5ff16e9f5ff4ceff5ff66f1f5ffdcf2f5ff36f6f5fff402f6ff3006f6ffdc06f6ff2625f6ffceb8f9ff3ebaf9ff8ebcf9ff7ebdf9ff40bff9ff5ec3f9ffaec5f9ff52c7f9ff265afaff525efaffe45efaffd40bfbff5650feffda52feffe0fbffff00000000e0e60000d84c0100ac4d0100d4570100927201008acc0600d4cc06007c0e0b005c0f0b009c0f0b00
+    m_ExpandedIDs: c064d6ff2a68d6ff826cd6ffec6fd6ffe009d7ff3a0ed7ffb019d7ff1a1dd7ffe6d8d7ffbcdfd7ffbc23d8ff562ad8ff102bd8fff28adafff48fdaffbaaddaff68b3daffceb7daff56e1daffeef3daff9479dcff2c83dcffb886ddff468cddff781edeffea22deff042ddeff1c69dfff38e6e6ffc611e7ff6e49e7ff5856e7ff1ce3e9fff212eaffe23deaff424aeaff7e68ebffb06febff0e70ebfff072ebff5875edff007deeffc418f2ff6c19f2ffb81bf2ff8843f2ffa645f2ff8c49f2ff6a4bf2ff7852f2ff5258f2ff7601f3ff7801f3ffaa08f3ffac08f3fffe30f5ff2e3cf5ff1a40f5ff8041f5ff9266f5ff9868f5ff2a6ff5ffca76f5ff16e9f5ff4ceff5ff66f1f5ffdcf2f5ff36f6f5fff402f6ff3006f6ffdc06f6ff2625f6ffceb8f9ff3ebaf9ff8ebcf9ff7ebdf9ff40bff9ff5ec3f9ffaec5f9ff52c7f9ff265afaff525efaffe45efaffd40bfbff5650feffda52feffe0fbffff00000000e0e60000d84c0100ac4d0100d4570100927201008acc0600d4cc06007c0e0b005c0f0b009c0f0b00
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -373,8 +373,8 @@ MonoBehaviour:
     y: 0
     width: 234
     height: 637
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 234, y: 271}
+  m_MaxSize: {x: 10004, y: 10021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -417,19 +417,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefab/Monster
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefab/Monster
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/shoosako/Documents/GitHub/dungeonofphantom
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 60260000
-    m_LastClickedID: 9824
-    m_ExpandedIDs: 00000000e82400001a25000000ca9a3bffffff7f
+    m_SelectedIDs: 2c250000
+    m_LastClickedID: 9516
+    m_ExpandedIDs: 00000000e82400001a250000be25000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -482,10 +482,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 82260000
-    m_LastClickedInstanceID: 9858
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: ea210000de210000da210000a471fdffe22100002c220000862300008c220000f8210000342200000a220000ea240000642500004cf5ffff28250000be250000582500004423dfff92260000000000006a1fe7ff40260000
+    m_SelectedInstanceIDs: ba250000
+    m_LastClickedInstanceID: 9658
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: ea210000de210000da210000a471fdffe22100002c220000862300008c220000f8210000342200000a220000ea240000642500004cf5ffff28250000be250000582500004423dfff92260000000000006a1fe7ff
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -530,8 +530,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 637
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}

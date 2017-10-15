@@ -71,8 +71,7 @@
      <Compile Include="Assets\Scripts\Save\SaveData.cs" />
      <Compile Include="Assets\Scripts\Save\SaveLoad.cs" />
      <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Title\FlameEffect.cs" />
-     <Compile Include="Assets\Scripts\Title\TapToStart.cs" />
+     <Compile Include="Assets\Scripts\TapToStart.cs" />
      <Compile Include="Assets\Scripts\Town\BuyButtonCheck.cs" />
      <Compile Include="Assets\Scripts\Town\TownDisplayArea.cs" />
      <Compile Include="Assets\Scripts\Town\TownManager.cs" />
