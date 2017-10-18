@@ -23,7 +23,6 @@ public class AchievementManager : SingletonMonoBehaviour<AchievementManager>
 
 	public void init()
 	{
-
 		count = new int[16]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		rank = new int[16]{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		unread = new bool[16];
