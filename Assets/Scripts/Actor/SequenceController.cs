@@ -157,8 +157,10 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 	void damagePrint(GameObject target, int d)
 	{
 		Actor a = target.GetComponent<Actor> ();
-		GameObject o = (GameObject)Instantiate (damageUI, new Vector3 (a.pos.x, 0.0f, a.pos.z), Quaternion.identity);
-		GameObject p = (GameObject)Instantiate (slash, new Vector3 (a.pos.x, 0.0f, a.pos.z), Quaternion.identity);
+		GridPosition q = player.GetComponent<Actor> ().pos;
+		Vector3 v = new Vector3(a.pos.x * 0.9f + q.x * 0.1f, 0.0f, a.pos.z * 0.9f + q.z * 0.1f);
+		GameObject o = (GameObject)Instantiate (damageUI, v, Quaternion.identity);
+		GameObject p = (GameObject)Instantiate (slash, v, Quaternion.identity);
 		o.transform.LookAt (Camera.main.transform.position);
 		p.transform.LookAt (Camera.main.transform.position);
 		if (d < 0)

@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour
 {
 	GameObject player;
 	Actor pla;
-//	bool buttonClicked = false;
 	bool flickFlag = false;
 	bool moveForwardFlag = false;
 	bool moveBackwardFlag = false;
