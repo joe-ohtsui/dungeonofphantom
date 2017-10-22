@@ -170,6 +170,7 @@ public class AchievementMessage : MonoBehaviour {
 			break;
 		}
 		AchievementManager.Instance.unread [id] = false;
+		AudioManager.Instance.playSE (1);
 	}
 
 	public void Close()

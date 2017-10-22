@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Achievement\AchievementArea.cs" />
      <Compile Include="Assets\Scripts\Achievement\AchievementManager.cs" />
      <Compile Include="Assets\Scripts\Achievement\AchievementMessage.cs" />
      <Compile Include="Assets\Scripts\Achievement\AchievementRank.cs" />
@@ -58,6 +57,7 @@
      <Compile Include="Assets\Scripts\Actor\Param.cs" />
      <Compile Include="Assets\Scripts\Actor\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Actor\SequenceController.cs" />
+     <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Dungeon\BillBoard.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\Dungeon\DungeonManager.cs" />

@@ -22,10 +22,10 @@ MonoBehaviour:
     y: 30
     width: 1280
     height: 637
-  m_MinSize: {x: 909, y: 421}
-  m_MaxSize: {x: 22004, y: 10000}
+  m_MinSize: {x: 913, y: 442}
+  m_MaxSize: {x: 22008, y: 10021}
   vertical: 0
-  controlID: 11975
+  controlID: 7250
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -122,10 +122,10 @@ MonoBehaviour:
     y: 0
     width: 565
     height: 637
-  m_MinSize: {x: 202, y: 421}
-  m_MaxSize: {x: 4002, y: 8021}
+  m_MinSize: {x: 202, y: 442}
+  m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 11907
+  controlID: 7229
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -179,14 +179,14 @@ MonoBehaviour:
     width: 563
     height: 230
   m_SceneLighting: 1
-  lastFramingTime: 4586.980862021446
+  lastFramingTime: 2443.7988159656525
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 450.39996, y: 140.5625, z: 0}
+    m_Target: {x: 0, y: 1.5000005, z: -0.0000009536743}
     speed: 2
-    m_Value: {x: 450.39996, y: 140.5625, z: 0}
+    m_Value: {x: 0, y: 1.5000005, z: -0.0000009536743}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -213,9 +213,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.7071068, y: 0, z: 0, w: -0.7071068}
   m_Size:
-    m_Target: 1118.6072
+    m_Target: 47.61158
     speed: 2
-    m_Value: 1118.6072
+    m_Value: 47.61158
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -270,8 +270,8 @@ MonoBehaviour:
     y: 251
     width: 565
     height: 386
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -330,9 +330,9 @@ MonoBehaviour:
     height: 616
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: aa260000
+    m_SelectedIDs: a0260000
     m_LastClickedID: 0
-    m_ExpandedIDs: 78befeffe838ffffd83dffff346bffffd0fbffff00000000702700007c270000fa760000a4770000
+    m_ExpandedIDs: 3c91feff62e9feff7ef0feff8277ffffb085fffff68bffffd290ffff4ce3ffff3ee7ffff20ecffffe0fbffff00000000be2a00006e360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -373,8 +373,8 @@ MonoBehaviour:
     y: 0
     width: 234
     height: 637
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 234, y: 271}
+  m_MaxSize: {x: 10004, y: 10021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -417,19 +417,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /Users/shoosako/Documents/GitHub/dungeonofphantom
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 8a260000
-    m_LastClickedID: 9866
-    m_ExpandedIDs: 00000000fc2400002e25000000ca9a3bffffff7f
+    m_SelectedIDs: 72250000
+    m_LastClickedID: 9586
+    m_ExpandedIDs: 00000000f22400002425000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -457,7 +457,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fc2400002e25000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000f22400002425000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -482,8 +482,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: aa260000
-    m_LastClickedInstanceID: 9898
+    m_SelectedInstanceIDs: a0260000
+    m_LastClickedInstanceID: 9888
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: ea210000de210000da210000a471fdffe22100002c220000862300008c220000f8210000342200000a220000ea240000642500004cf5ffff28250000be250000582500004423dfff92260000000000006a1fe7ffe2250000
     m_RenameOverlay:

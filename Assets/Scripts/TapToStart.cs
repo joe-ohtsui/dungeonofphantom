@@ -6,7 +6,9 @@ public class TapToStart : MonoBehaviour
 {
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+		AudioManager.Instance.playBGM (0);
 	}
 	
 	// Update is called once per frame
@@ -15,6 +17,7 @@ public class TapToStart : MonoBehaviour
 
 	public void OnClicked()
 	{
+		AudioManager.Instance.playSE (1);
 		GameMaster.Instance.load ();
 		FadeManager.Instance.LoadLevel("Town",0.5f);
 	}

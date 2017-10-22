@@ -21,6 +21,8 @@ public class GameOver : MonoBehaviour {
 			GetComponent<Canvas> ().enabled = true;
 			player.actphase = Actor.Phase.DEAD;
 			SaveLoad.Instance.gameover ();
+			AudioManager.Instance.playSE (3);
+			AudioManager.Instance.stopBGM ();
 		}
 	}
 

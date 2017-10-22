@@ -13,16 +13,19 @@ public class CanvasSwitch : MonoBehaviour {
 
 	public void Switch()
 	{
+		AudioManager.Instance.playSE (0);
 		c.enabled = !c.enabled;
 	}
 
 	public void EnableCanvas()
 	{
+		AudioManager.Instance.playSE (0);
 		c.enabled = true;
 	}
 
 	public void DisableCanvas()
 	{
+		AudioManager.Instance.playSE (0);
 		c.enabled = false;
 	}
 }

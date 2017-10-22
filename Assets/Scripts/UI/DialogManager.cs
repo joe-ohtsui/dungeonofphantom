@@ -40,6 +40,7 @@ public class DialogManager : SingletonMonoBehaviour<DialogManager> {
 		{
 			GameObject.Destroy (n.gameObject);
 		}
+		AudioManager.Instance.playSE (1);
 	}
 
 	public void NoButtonClicked()
@@ -49,6 +50,7 @@ public class DialogManager : SingletonMonoBehaviour<DialogManager> {
 		{
 			GameObject.Destroy (n.gameObject);
 		}
+		AudioManager.Instance.playSE (0);
 	}
 
 	public Answer getAnswer()

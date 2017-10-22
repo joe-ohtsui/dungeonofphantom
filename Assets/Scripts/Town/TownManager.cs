@@ -29,6 +29,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		GameMaster.Instance.maxHp ();
 		CreateTrade ();
 		SaveLoad.Instance.save ();
+		AudioManager.Instance.playBGM (1);
 	}
 
 	void CreateTrade()
@@ -133,6 +134,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 				e.hit, SwordList [id].hit, dh.ToString("+#;-#;0"))
 		);
 		StartCoroutine (waitForBuySword (id));
+		AudioManager.Instance.playSE (1);
 	}
 
 	IEnumerator waitForBuySword(int id)
@@ -169,6 +171,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 				e.eva, ShieldList [id].eva, dh.ToString("+#;-#;0"))
 		);
 		StartCoroutine (waitForBuyShield (id));
+		AudioManager.Instance.playSE (1);
 	}
 
 	IEnumerator waitForBuyShield(int id)
@@ -195,6 +198,7 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		GameMaster.Instance.gold -= itemPrice [id];
 		AchievementManager.Instance.addCount (10, itemPrice [id]);
 		SaveLoad.Instance.save ();
+		AudioManager.Instance.playSE (1);
 	}
 
 	public void sellItemButtonClicked(int id)
@@ -202,10 +206,12 @@ public class TownManager : SingletonMonoBehaviour<TownManager> {
 		GameMaster.Instance.itemNum [id]--;
 		GameMaster.Instance.gold += itemPrice [id] / 2;
 		SaveLoad.Instance.save ();
+		AudioManager.Instance.playSE (1);
 	}
 	
 	public void GoToDungeonButtonClicked()
 	{
+		AudioManager.Instance.playSE (1);
 		FadeManager.Instance.LoadLevel ("Dungeon", 0.5f);
 	}
 }

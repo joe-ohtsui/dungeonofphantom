@@ -26,6 +26,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
         player = GameObject.FindWithTag("Player").GetComponent<Actor>();
 		phantom = null;
 		phantomstep = 0;
+		nextFloorBGM ();
     }
 
     public void setBlock(int x, int z, int value)
@@ -226,6 +227,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		DungeonGenerator.Instance.Generate ();
 		LogManager.Instance.PutLog (string.Format ("{0}Fに たどり着いた", depth));
 		GameMaster.Instance.ObtainExp (2 + depth / 2);
+		nextFloorBGM ();
 		FadeManager.Instance.StartFadeIn (0.5f);
 		yield return new WaitForSeconds (0.5f);
 	}
@@ -241,6 +243,7 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 				break;
 			}
 		}
+		AudioManager.Instance.playSE (4);
 	}
 
 	IEnumerator warppoint(GridPosition position)
@@ -293,8 +296,33 @@ public class DungeonManager : SingletonMonoBehaviour<DungeonManager>
 		DungeonGenerator.Instance.Generate ();
 		player.pos = getRandomPosition();
 		player.dest = player.pos;
+		nextFloorBGM ();
 
 		FadeManager.Instance.StartFadeIn (0.5f);
 		yield return new WaitForSeconds (0.5f);
+	}
+
+	void nextFloorBGM()
+	{
+		switch (depth)
+		{
+		case 1:
+			AudioManager.Instance.playBGM (2);
+			break;
+		case 5:
+			AudioManager.Instance.playBGM (3);
+			break;
+		case 9:
+			AudioManager.Instance.playBGM (4);
+			break;
+		case 13:
+			AudioManager.Instance.playBGM (5);
+			break;
+		case 17:
+			AudioManager.Instance.playBGM (6);
+			break;
+		default:
+			break;
+		}
 	}
 }

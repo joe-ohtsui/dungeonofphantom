@@ -215,6 +215,7 @@ public class GameMaster : SingletonMonoBehaviour<GameMaster>
 			LogManager.Instance.PutLog ("罠に かかった");
 			LogManager.Instance.PutLog (string.Format ("{0}ダメージを 受けた", damage));
 			AchievementManager.Instance.addCount (14, 1);
+			AudioManager.Instance.playSE (2);
 		}
 	}
 

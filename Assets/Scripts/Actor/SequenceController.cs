@@ -140,6 +140,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 					}
 					GameMaster.Instance.ObtainExp (bp.exp);
 					Destroy (g);
+					AudioManager.Instance.playSE (3);
 				}
 			}
 		}
@@ -173,6 +174,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 			o.transform.GetChild (0).GetComponent<Text> ().text = d.ToString ();
 			LogManager.Instance.PutLog (string.Format ("{0}に {1}ダメージを 与えた", target.name, d));
 			a.damaged ();
+			AudioManager.Instance.playSE (2);
 		}
 		Destroy (o, 0.5f);
 		Destroy (p, 0.2f);
@@ -191,6 +193,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 			damagetext.text = d.ToString ();
 			LogManager.Instance.PutLog (string.Format("{0}ダメージを 受けた", d));
 			target.GetComponent<Actor> ().damaged ();
+			AudioManager.Instance.playSE (2);
 		}
 	}
 

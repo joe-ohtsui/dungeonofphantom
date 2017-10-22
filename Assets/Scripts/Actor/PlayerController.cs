@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
 			GameMaster.Instance.itemNum [itemID]--;
 			GameMaster.Instance.calcParam ();
 			pla.actphase = Actor.Phase.MOVE_START;
+			AudioManager.Instance.playSE (5);
 		}
 	}
 
