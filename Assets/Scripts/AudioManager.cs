@@ -7,6 +7,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager> {
 	public AudioClip[] bgm;
 	public AudioClip[] se;
 	private AudioSource[] sources;
+	int bgmid = -1;
 
 	// Use this for initialization
 	void Start ()
@@ -24,9 +25,13 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager> {
 
 	public void playBGM(int id)
 	{
-		sources [0].clip = bgm [id];
-		sources [0].loop = true;
-		sources [0].Play ();
+		if (id != bgmid)
+		{
+			sources [0].clip = bgm [id];
+			sources [0].loop = true;
+			sources [0].Play ();
+			bgmid = id;
+		}
 	}
 
 	public void stopBGM()

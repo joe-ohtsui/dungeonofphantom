@@ -30,11 +30,11 @@ public class DungeonMap : MonoBehaviour
                 cols[i] = new Color(0.0f, 0.0f, 0.0f, 0.0f);
             }
 
-            Color white = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-            Color green = new Color(0.25f, 1.0f, 0.5f, 0.5f);
-            Color red = new Color(1.0f, 0.25f, 0.25f, 0.5f);
-            Color yellow = new Color(1.0f, 1.0f, 0.0f, 0.5f);
-			Color purple = new Color (0.75f, 0.25f, 1.0f, 0.5f);
+            Color white = new Color(1.0f, 1.0f, 1.0f, 0.75f);
+            Color green = new Color(0.25f, 1.0f, 0.5f, 0.75f);
+            Color red = new Color(1.0f, 0.25f, 0.25f, 0.75f);
+            Color yellow = new Color(1.0f, 0.75f, 0.0f, 0.75f);
+			Color purple = new Color (0.75f, 0.25f, 1.0f, 0.75f);
 			Color nothing = new Color (0.0f, 0.0f, 0.0f, 0.0f);
 
 			for (int i = 0; i < 19; i++)

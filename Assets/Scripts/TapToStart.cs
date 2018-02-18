@@ -8,11 +8,11 @@ public class TapToStart : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		AudioManager.Instance.playBGM (0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		AudioManager.Instance.playBGM (0);
 	}
 
 	public void OnClicked()

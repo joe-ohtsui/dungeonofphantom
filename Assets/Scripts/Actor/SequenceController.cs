@@ -130,7 +130,7 @@ public class SequenceController : SingletonMonoBehaviour<SequenceController>
 						break;
 					case "Phantom":
 						AchievementManager.Instance.addCount (8, 1);
-						GameMaster.Instance.equip.Sword.id = 5;
+						GameMaster.Instance.equip.Sword.set (5, Random.Range (0, 16), 15, Random.Range (0, 16), 15);
 						break;
 					case "Dragon":
 						AchievementManager.Instance.addCount (9, 1);
